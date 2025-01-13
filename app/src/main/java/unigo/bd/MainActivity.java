@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView appNameText;
     private String appName = "UniGO";
     private int index = 0;
-    private long delay = 500;
+    private long delay = 400;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         animateText();
         new Handler().postDelayed(() -> {
             startActivity(new Intent(MainActivity.this, UserHomepage.class)); // Replace with your main activity
-            finish(); // Close Splash Activity
+            finish();
         }, 3000);     }
 private void animateText() {
     Handler handler = new Handler();
