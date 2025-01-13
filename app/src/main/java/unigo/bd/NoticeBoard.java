@@ -15,5 +15,6 @@ public class NoticeBoard extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notice_board);
 
+
     }
 }

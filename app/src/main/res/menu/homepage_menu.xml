@@ -12,6 +12,7 @@
     <item
         android:id="@+id/login_menu"
         android:title="LogIn"
+
         app:showAsAction="never"
 
         />
