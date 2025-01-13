@@ -26,14 +26,23 @@ private Button stuff,student,faculty,notice;
         notice = findViewById(R.id.btnNotice);
         Toolbar toolbar = findViewById(R.id.topBar);
         setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null) {
+        if (getSupportActionBar() != null) {   // remove the text from topBar of xml
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
 
+        stuff.setOnClickListener(v->{
+            Toast.makeText(this, "You Clicked Stuff Button!", Toast.LENGTH_SHORT).show();
+        });
+        student.setOnClickListener(v->{
+            Toast.makeText(this, "You Clicked Student Button!", Toast.LENGTH_SHORT).show();
+        });
+        faculty.setOnClickListener(v->{
+            Toast.makeText(this, "You Clicked Faculty Button!", Toast.LENGTH_SHORT).show();
+        });
+        notice.setOnClickListener(v->{
+            Toast.makeText(this, "You Clicked Notice Button!", Toast.LENGTH_SHORT).show();
+        });
     }
-
-
-    // Inflate the menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
