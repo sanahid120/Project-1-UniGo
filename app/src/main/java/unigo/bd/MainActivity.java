@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         }, 3000);
     }
 
+
 private void animateText() {
     Handler handler = new Handler();
     handler.postDelayed(new Runnable() {

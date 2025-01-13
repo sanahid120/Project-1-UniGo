@@ -32,6 +32,7 @@ private Button stuff,student,faculty,notice;
 
     }
 
+
     // Inflate the menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
