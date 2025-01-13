@@ -26,7 +26,8 @@ public class MainActivity extends AppCompatActivity {
         new Handler().postDelayed(() -> {
             startActivity(new Intent(MainActivity.this, UserHomepage.class)); // Replace with your main activity
             finish();
-        }, 3000);     }
+        }, 3000);
+    }
 private void animateText() {
     Handler handler = new Handler();
     handler.postDelayed(new Runnable() {

@@ -2,90 +2,88 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
-    android:gravity="center|top">
+    xmlns:src="http://schemas.android.com/apk/res-auto"
 
-    <!-- Top Bar -->
-    <RelativeLayout
+    android:background="@drawable/image">
+
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/topBar"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:background="#F44336">
+        android:background="@drawable/custom_button_background"
+        android:elevation="4dp"
 
-        <!-- Back Button -->
-        <ImageView
-            android:id="@+id/btnBack"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/ic_arrow_back"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="16dp" />
+    >
+</androidx.appcompat.widget.Toolbar>
 
-        <!-- Hamburger Menu -->
-        <ImageView
-            android:id="@+id/btnMenu"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/ic_menu"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="16dp" />
-    </RelativeLayout>
+
+
+
 
     <!-- Buttons Grid -->
     <GridLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:layout_marginStart="25dp"
-        android:layout_marginEnd="25dp"
         android:columnCount="2"
-        android:rowCount="2"
+        android:padding="16dp"
         android:useDefaultMargins="true">
 
+        <!-- Student Button -->
         <Button
             android:id="@+id/btnStudent"
-            android:layout_width="175dp"
-            android:layout_height="80dp"
-            android:layout_row="0"
-            android:layout_column="0"
-            android:background="#E0E0E0"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_margin="8dp"
+            android:background="@drawable/custom_button_background"
             android:text="Student"
             android:textAllCaps="true"
-            android:textSize="20sp"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/black"
+            android:textSize="18sp" />
 
+        <!-- Faculty Button -->
         <Button
             android:id="@+id/btnFaculty"
-            android:layout_width="175dp"
-            android:layout_height="80dp"
-            android:background="#E0E0E0"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_margin="8dp"
+            android:background="@drawable/custom_button_background"
             android:text="Faculty"
             android:textAllCaps="true"
-            android:textSize="20sp"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/black"
+            android:textSize="18sp" />
 
         <!-- Stuff Button -->
         <Button
             android:id="@+id/btnStuff"
-            android:layout_width="175dp"
-            android:layout_height="80dp"
-            android:background="#E0E0E0"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_margin="8dp"
+            android:background="@drawable/custom_button_background"
             android:text="Stuff"
             android:textAllCaps="true"
-            android:textSize="20sp"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/black"
+            android:textSize="18sp" />
 
-        <!-- Schedule Button -->
+        <!-- Admin Button -->
         <Button
-            android:id="@+id/btnSchedule"
-            android:layout_width="175dp"
-            android:layout_height="80dp"
-            android:background="#976363"
+            android:id="@+id/btnNotice"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_margin="8dp"
+            android:background="@drawable/custom_button_background"
+            android:backgroundTint="@color/white"
             android:text="Notice"
             android:textAllCaps="true"
-            android:textSize="20sp"
-            android:textColor="#46E40A" />
+            android:textColor="@android:color/black"
+            android:textSize="18sp" />
     </GridLayout>
 </RelativeLayout>

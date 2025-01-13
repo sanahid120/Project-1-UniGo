@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">UniGo</string>
     <string name="unigo">UniGO</string>
+    <string name="mytext"><u>Lu Transport</u></string>
 </resources>
