@@ -1,9 +1,7 @@
 package unigo.bd;
-
 import static unigo.bd.R.id.login_menu;
-import static unigo.bd.R.id.register_menu;
 
-import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -35,6 +33,7 @@ private Button stuff,student,faculty,notice;
         });
         student.setOnClickListener(v->{
             Toast.makeText(this, "You Clicked Student Button!", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(UserHomepage.this,Admin_Schedule.class));
         });
         faculty.setOnClickListener(v->{
             Toast.makeText(this, "You Clicked Faculty Button!", Toast.LENGTH_SHORT).show();
@@ -49,18 +48,13 @@ private Button stuff,student,faculty,notice;
         inflater.inflate(R.menu.homepage_menu, menu);
         return true;
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId()== login_menu){
-            Toast.makeText(this, "Login Button Selected", Toast.LENGTH_SHORT).show();
-            return true;
-        }
-        if(item.getItemId()==register_menu){
-            Toast.makeText(this, "Register Button Clicked", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Login/Register Button Selected", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(UserHomepage.this,SignupActivity.class));
             return true;
         }
         return super.onOptionsItemSelected(item);
-
     }
 }

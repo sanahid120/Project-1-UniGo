@@ -1,0 +1,81 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/image"
+    android:padding="20dp">
+
+    <!-- Toolbar Section -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/topBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#75C1E4"
+        android:elevation="4dp">
+
+        <!-- Back Button inside Toolbar -->
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_arrow_back"
+            android:contentDescription="Back"
+            android:background="@null"
+            android:padding="8dp"
+            android:layout_gravity="start" />
+
+        <!-- Menu Button inside Toolbar -->
+        <ImageButton
+            android:id="@+id/menuButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_menu"
+            android:contentDescription="Menu"
+            android:background="@null"
+            android:padding="8dp"
+            android:layout_gravity="end" />
+    </androidx.appcompat.widget.Toolbar>
+
+    <!-- Schedule Title -->
+    <TextView
+        android:id="@+id/scheduleTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sunday (Date)"
+        android:textSize="18sp"
+        android:layout_below="@id/topBar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp" />
+
+    <!-- Add and Mark Completed Buttons -->
+    <TextView
+        android:id="@+id/addButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add"
+        android:clickable="true"
+        android:focusable="true"
+        android:textColor="#0000FF"
+        android:layout_below="@id/scheduleTitle"
+        android:layout_alignParentStart="true"
+        android:layout_margin="8dp" />
+
+    <TextView
+        android:id="@+id/markCompletedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/mark_completed"
+        android:textColor="#0000FF"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_below="@id/scheduleTitle"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="8dp" />
+
+    <!-- RecyclerView -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/addButton"
+        android:layout_marginTop="16dp" />
+</RelativeLayout>

@@ -3,14 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:src="http://schemas.android.com/apk/res-auto"
-
     android:background="@drawable/image">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/topBar"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:background="@drawable/custom_button_background"
-        android:elevation="4dp"
+        android:elevation="40dp"
     >
 </androidx.appcompat.widget.Toolbar>
     <GridLayout
@@ -33,7 +32,8 @@
             android:text="Student"
             android:textAllCaps="true"
             android:textColor="@android:color/black"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            />
 
         <!-- Faculty Button -->
         <Button

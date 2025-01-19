@@ -2,4 +2,6 @@
     <string name="app_name">UniGo</string>
     <string name="unigo">UniGO</string>
     <string name="mytext"><u>Lu Transport</u></string>
+    <string name="mark_completed"><u>Mark Completed</u></string>
+    <string name="add"><u>Add+</u></string>
 </resources>
