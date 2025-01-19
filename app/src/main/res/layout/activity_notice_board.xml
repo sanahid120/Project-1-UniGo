@@ -9,7 +9,6 @@
 
     <Button
         android:id="@+id/angry_btn"
-
         android:text="NOTICE"
         android:textColor="#49FFFA"
         android:textSize="30sp"

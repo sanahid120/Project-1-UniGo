@@ -19,7 +19,7 @@ public class Admin_Schedule extends AppCompatActivity {
 
     private RecyclerView recyclerViewSchedule;
     private ScheduleAdapter scheduleAdapter;
-    private List<ScheduleItem> scheduleList;
+    List<ScheduleItem> scheduleList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +41,8 @@ public class Admin_Schedule extends AppCompatActivity {
 
         // Add new schedule item
         btnAdd.setOnClickListener(v -> {
-            scheduleList.add(new ScheduleItem("Route A", "10:00 AM", "Bus 1"));
+           // scheduleList.add(new ScheduleItem("Route A", "10:00 AM", "Bus 1"));
+            startActivity(new Intent(Admin_Schedule.this, AddSchedule.class));
             scheduleAdapter.notifyDataSetChanged();
         });
 
