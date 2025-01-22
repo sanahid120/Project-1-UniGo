@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#BFE5F6"
+    android:padding="25dp">
+
+    <!-- Back Button -->
+    <ImageButton
+        android:id="@+id/btnBack"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@null"
+        android:src="@drawable/ic_arrow_back"
+        android:contentDescription="Back Button"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <!-- Time Selection -->
+    <TextView
+        android:id="@+id/tvTimeSelection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Time:"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        android:layout_toEndOf="@id/btnBack"
+        android:layout_marginStart="16dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="8dp" />
+
+    <RadioGroup
+        android:id="@+id/rgTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvTimeSelection"
+        android:layout_marginTop="20dp">
+
+        <RadioButton
+            android:id="@+id/rbTime1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1:30 PM" />
+
+        <RadioButton
+            android:id="@+id/rbTime2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3:00 PM" />
+    </RadioGroup>
+
+    <!-- Route Selection -->
+    <TextView
+        android:id="@+id/tvRouteSelection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Route:"
+        android:textSize="25sp"
+        android:layout_below="@id/rgTime"
+        android:layout_marginTop="16dp" />
+
+    <Spinner
+        android:id="@+id/spinnerRoutes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvRouteSelection"
+        android:layout_marginTop="8dp" />
+
+    <!-- Vote Button -->
+    <Button
+        android:id="@+id/btnVote"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SEND"
+        android:layout_below="@id/spinnerRoutes"
+        android:layout_marginTop="16dp"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>
