@@ -4,56 +4,60 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import java.util.ArrayList;
 import java.util.List;
 
 public class BusAdapter extends RecyclerView.Adapter<BusAdapter.BusViewHolder> {
 
-    private List<String> busList = new ArrayList<>();
-    private OnItemClickListener listener;
+    private final List<String> busList; // Holds the bus numbers
+    private final OnItemClickListener listener; // Listener for item clicks
 
+    // Constructor to initialize busList and listener
+    public BusAdapter(List<String> busList, OnItemClickListener listener) {
+        this.busList = busList;
+        this.listener = listener;
+    }
+
+    @NonNull
     @Override
-    public BusViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public BusViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        // Inflate the layout for each item in the RecyclerView
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.bus_item, parent, false);
-        return new BusViewHolder(itemView, listener); // Pass the listener to the ViewHolder
+        return new BusViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(BusViewHolder holder, int position) {
-        holder.busNumberTextView.setText(busList.get(position));
+    public void onBindViewHolder(@NonNull BusViewHolder holder, int position) {
+        // Bind the data (bus number) to the ViewHolder
+        String busNumber = busList.get(position);
+        holder.busNumberTextView.setText(busNumber);
+
+        // Handle item click
+        holder.itemView.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onItemClick(busNumber);
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        return busList.size();
+        return busList.size(); // Returns the total number of items
     }
 
-    public void addBusNumber(String busNumber) {
-        busList.add(busNumber);
-        notifyItemInserted(busList.size() - 1);
-    }
-
-    public void setOnItemClickListener(OnItemClickListener listener) {
-        this.listener = listener;
-    }
-
-    public interface OnItemClickListener {
-        void onItemClick(String busNumber);
-    }
-
+    // ViewHolder class to hold the views for each item
     public static class BusViewHolder extends RecyclerView.ViewHolder {
         TextView busNumberTextView;
 
-        public BusViewHolder(View itemView, OnItemClickListener listener) {
+        public BusViewHolder(@NonNull View itemView) {
             super(itemView);
-            busNumberTextView = itemView.findViewById(R.id.busNumberTextView);
-
-            itemView.setOnClickListener(v -> {
-                if (listener != null) {
-                    listener.onItemClick(busNumberTextView.getText().toString());
-                }
-            });
+            busNumberTextView = itemView.findViewById(R.id.busNumberTextView); // Reference to TextView in the layout
         }
+    }
+
+    // Interface for handling item clicks
+    public interface OnItemClickListener {
+        void onItemClick(String busNumber);
     }
 }

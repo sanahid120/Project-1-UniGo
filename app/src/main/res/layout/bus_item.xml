@@ -3,13 +3,21 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="16dp">
-
+    android:padding="10dp">
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Number: "
+    android:textAppearance="@color/black"
+    android:textStyle="bold"
+    android:textSize="20sp"
+    />
     <TextView
         android:id="@+id/busNumberTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Bus Number"
-        android:textStyle="bold"
-        android:textSize="23sp" />
+        android:text="bus number"
+        android:textAppearance="@color/black"
+        android:textStyle="italic"
+        android:textSize="20sp" />
 </LinearLayout>

@@ -4,130 +4,148 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
-import androidx.core.view.GravityCompat;
 import android.widget.*;
-import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.widget.Toolbar;
-import com.google.android.material.navigation.NavigationView;
+import androidx.drawerlayout.widget.DrawerLayout;
+import com.google.firebase.database.*;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class AddSchedule extends AppCompatActivity {
-    private TextView addBusNumber;
-    private EditText addTime;
+
+    private Spinner spinnerRoutes, spinnerBusNumbers;
+    private EditText editTextTime;
     private Button btnCreate;
     private RadioGroup radioGroupFor;
-    private RadioGroup radioGroupRoute;
     private ImageButton backButton;
-    private DrawerLayout drawerLayout;
-    private NavigationView navigationView;
-    private ActionBarDrawerToggle toggle;
-    private String selectedBusNumber = "None"; // Default bus number
+
+    private DatabaseReference databaseReference;
+    private ArrayList<String> routesList = new ArrayList<>();
+    private ArrayList<String> busNumbersList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_schedule);
 
-        // Initialize views
-        addBusNumber = findViewById(R.id.AddBusNumber);
-        addTime = findViewById(R.id.AddTime);
+        // Initialize Firebase database reference
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+
+        spinnerRoutes = findViewById(R.id.spinnerRoutes);
+        spinnerBusNumbers = findViewById(R.id.spinnerBusNumbers);
+        editTextTime = findViewById(R.id.editTextTime);
         btnCreate = findViewById(R.id.btnCreate);
         radioGroupFor = findViewById(R.id.radioGroupFor);
-        radioGroupRoute = findViewById(R.id.radioGroupRoute);
         backButton = findViewById(R.id.back_button);
-        drawerLayout = findViewById(R.id.drawerLayout);
-        navigationView = findViewById(R.id.nav_view);
 
-        // Set up the Toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        // Handle Navigation Drawer Item Selections
-        navigationView.setNavigationItemSelectedListener(item -> {
-            int id = item.getItemId();
-            if (id == R.id.nav_home) {
-                Toast.makeText(this, "Home selected", Toast.LENGTH_SHORT).show();
-            } else if (id == R.id.nav_add_new) {
-                Toast.makeText(this, "Add New selected", Toast.LENGTH_SHORT).show();
-            } else if (id == R.id.nav_update) {
-                Toast.makeText(this, "Update selected", Toast.LENGTH_SHORT).show();
-            } else if (id == R.id.nav_delete) {
-                Toast.makeText(this, "Delete selected", Toast.LENGTH_SHORT).show();
-            } else if (id == R.id.nav_logout) {
-                Toast.makeText(this, "Logout selected", Toast.LENGTH_SHORT).show();
-            }
-            drawerLayout.closeDrawers(); // Close the drawer after selection
-            return true;
-        });
+        getActionBar().setDisplayShowTitleEnabled(false);
 
-        // Get selected bus number from ThirdActivity (if returned)
-        Intent intent = getIntent();
-        if (intent.hasExtra("selectedBusNumber")) {
-            selectedBusNumber = intent.getStringExtra("selectedBusNumber");
-            addBusNumber.setText("Bus Number: " + selectedBusNumber);
-        }
+        loadRoutes();
+        loadBusNumbers();
 
-        // Handle Add Bus Number Intent
-        addBusNumber.setOnClickListener(v -> {
-            Intent busIntent = new Intent(AddSchedule.this, AddBus.class);
-            startActivityForResult(busIntent, 1);
-        });
-
-        // Handle Time Picker Dialog (Spinner Style)
-        addTime.setOnClickListener(v -> {
-            Calendar calendar = Calendar.getInstance();
-            int hour = calendar.get(Calendar.HOUR_OF_DAY);
-            int minute = calendar.get(Calendar.MINUTE);
-
-            TimePickerDialog timePickerDialog = new TimePickerDialog(AddSchedule.this,
-                    TimePickerDialog.THEME_HOLO_LIGHT,
-                    (view, hourOfDay, minuteOfDay) -> addTime.setText(String.format("%02d:%02d", hourOfDay, minuteOfDay)),
-                    hour, minute, true);
-            timePickerDialog.show();
-        });
+        // Handle Time Picker
+        editTextTime.setOnClickListener(v -> showTimePickerDialog());
 
         // Handle Create Button
-        btnCreate.setOnClickListener(v -> {
-            String selectedFor = ((RadioButton) findViewById(radioGroupFor.getCheckedRadioButtonId())).getText().toString();
-            StringBuilder routesSelected = new StringBuilder();
-            int selectedRouteId = radioGroupRoute.getCheckedRadioButtonId();
-            if (selectedRouteId != -1) {
-                routesSelected.append(((RadioButton) findViewById(selectedRouteId)).getText().toString());
-            }
-            Admin_Schedule adminSchedule =new Admin_Schedule();
-            adminSchedule.scheduleList.add(new ScheduleItem(selectedFor,addTime.getText().toString(),selectedBusNumber));
-
-            Intent refreshIntent = getIntent();
-            startActivity(refreshIntent);
-        });
+        btnCreate.setOnClickListener(v -> saveScheduleToFirebase());
 
         // Handle Back Button
-        backButton.setOnClickListener(v -> onBackPressed());
+        backButton.setOnClickListener(v -> finish());
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1 && resultCode == RESULT_OK) {
-            // Receive the selected bus number
-            selectedBusNumber = data.getStringExtra("selectedBusNumber");
-            addBusNumber.setText("Bus Number: " + selectedBusNumber);
+    private void loadRoutes() {
+        // Manually set the routes
+        routesList.clear();
+        routesList.add("Route 1");
+        routesList.add("Route 2");
+        routesList.add("Route 3");
+        routesList.add("Route 4");
+
+        // Set the adapter for the spinner
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, routesList);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerRoutes.setAdapter(adapter);
+    }
+
+    private void loadBusNumbers() {
+        // Load bus numbers from Firebase
+        databaseReference.child("buses").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                busNumbersList.clear();
+                for (DataSnapshot busSnapshot : snapshot.getChildren()) {
+                    String busNumber = busSnapshot.getValue(String.class);
+                    if (busNumber != null) {
+                        busNumbersList.add(busNumber);
+                    }
+                }
+                if (!busNumbersList.isEmpty()) {
+                    ArrayAdapter<String> adapter = new ArrayAdapter<>(AddSchedule.this, android.R.layout.simple_spinner_item, busNumbersList);
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spinnerBusNumbers.setAdapter(adapter);
+                } else {
+                    Toast.makeText(AddSchedule.this, "No bus numbers found in Firebase", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(AddSchedule.this, "Failed to load bus numbers", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void showTimePickerDialog() {
+        Calendar calendar = Calendar.getInstance();
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int minute = calendar.get(Calendar.MINUTE);
+
+        TimePickerDialog timePickerDialog = new TimePickerDialog(this, (view, hourOfDay, minute1) ->
+                editTextTime.setText(String.format("%02d:%02d", hourOfDay, minute1)), hour, minute, true);
+        timePickerDialog.show();
+    }
+
+    private void saveScheduleToFirebase() {
+        String selectedFor = ((RadioButton) findViewById(radioGroupFor.getCheckedRadioButtonId())).getText().toString();
+        String selectedRoute = spinnerRoutes.getSelectedItem().toString();
+        String selectedBusNumber = spinnerBusNumbers.getSelectedItem().toString();
+        String selectedTime = editTextTime.getText().toString();
+
+        if (selectedRoute.isEmpty() || selectedBusNumber.isEmpty() || selectedTime.isEmpty()) {
+            Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
+            return;
         }
+
+        DatabaseReference scheduleRef = databaseReference.child("Schedules").child(selectedFor);
+
+        // Create a unique schedule ID
+        String scheduleId = scheduleRef.push().getKey();
+
+        if (scheduleId != null) {
+            Schedule schedule = new Schedule(selectedRoute, selectedBusNumber, selectedTime);
+            scheduleRef.child(scheduleId).setValue(schedule)
+                    .addOnSuccessListener(aVoid -> Toast.makeText(AddSchedule.this, "Schedule added successfully", Toast.LENGTH_SHORT).show())
+                    .addOnFailureListener(e -> Toast.makeText(AddSchedule.this, "Failed to add schedule", Toast.LENGTH_SHORT).show());
+        } else {
+            Toast.makeText(this, "Error: Unable to generate schedule ID", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_navigation, menu);
+        getMenuInflater().inflate(R.menu.add_schedule_menu, menu);
         return true;
     }
-
-    @Override
-    public void onBackPressed() {
-        if (drawerLayout.isDrawerOpen(GravityCompat.END)) {
-            drawerLayout.closeDrawers();
-        } else {
-            super.onBackPressed();
-        }
+    private void restartActivity() {
+        // Restart the current activity
+        Intent intent = getIntent();
+        finish(); // Finish the current instance
+        startActivity(intent); // Start a new instance
     }
+
 }

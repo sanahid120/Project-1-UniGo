@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/drawerLayout"
+    android:background="@drawable/image"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -11,175 +12,143 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@color/white">
+        >
 
         <!-- Toolbar -->
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="42dp"
-            android:background="#E42828"
+            android:layout_height="wrap_content"
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
 
-            <!-- Back Button on the left side -->
             <ImageButton
                 android:id="@+id/back_button"
-                android:layout_width="57dp"
-                android:layout_height="48dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:src="@drawable/ic_arrow_back"
                 android:background="@null"
                 android:contentDescription="Back"
                 android:layout_gravity="start" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add Schedule"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:layout_gravity="center" />
         </androidx.appcompat.widget.Toolbar>
 
         <!-- Form Content -->
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:layout_height="match_parent">
 
-            <!-- Schedule Title -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Add a new Schedule"
-                android:textColor="@android:color/black"
-                android:textStyle="bold"
-                android:textSize="20sp"
-                android:layout_gravity="center" />
-
-            <!-- For Section -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="For"
-                android:textSize="20sp"
-                android:textColor="@color/black"
-                android:textStyle="bold" />
-
-            <RadioGroup
-                android:id="@+id/radioGroupFor"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="16dp">
 
-                <RadioButton
-                    android:id="@+id/radioTeacher"
+                <!-- Schedule Title -->
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:textSize="17sp"
+                    android:text="Select For"
+                    android:textColor="@android:color/black"
                     android:textStyle="bold"
-                    android:text="Teacher/Staff" />
+                    android:textSize="18sp"
+                    android:layout_marginBottom="8dp" />
 
-                <RadioButton
-                    android:id="@+id/radioStudent"
+                <!-- Selection for Teacher/Student -->
+                <RadioGroup
+                    android:id="@+id/radioGroupFor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/radioTeacher"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Teacher"
+                        android:textSize="18sp"
+                        android:layout_marginEnd="5dp"
+                        android:textColor="@android:color/black" />
+
+                    <RadioButton
+                        android:id="@+id/radioStudent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Student"
+                        android:textSize="18sp"
+                        android:textColor="@android:color/black" />
+                </RadioGroup>
+
+                <!-- Route Section -->
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:textSize="17sp"
-                    android:textStyle="bold"
-                    android:text="Student" />
-            </RadioGroup>
+                    android:text="Select Route"
+                    android:textSize="18sp"
+                    android:textColor="@android:color/black"
+                    android:layout_marginTop="16dp" />
 
-            <!-- Route Section -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Route"
-                android:textSize="20sp"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:layout_marginTop="16dp" />
+                <Spinner
+                    android:id="@+id/spinnerRoutes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp" />
 
-            <RadioGroup
-                android:id="@+id/radioGroupRoute"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <RadioButton
-                    android:id="@+id/radioRoute1"
+                <!-- Bus Number Section -->
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="17sp"
-                    android:textStyle="bold"
-                    android:text="Route 1" />
+                    android:text="Select Bus Number"
+                    android:textSize="18sp"
+                    android:textColor="@android:color/black"
+                    android:layout_marginTop="16dp" />
 
-                <RadioButton
-                    android:id="@+id/radioRoute2"
+                <Spinner
+                    android:id="@+id/spinnerBusNumbers"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp" />
+
+                <!-- Add Time Section -->
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="17sp"
-                    android:textStyle="bold"
-                    android:text="Route 2" />
+                    android:text="Select Time"
+                    android:textSize="18sp"
+                    android:textColor="@android:color/black"
+                    android:layout_marginTop="16dp" />
 
-                <RadioButton
-                    android:id="@+id/radioRoute3"
-                    android:layout_width="wrap_content"
+                <EditText
+                    android:id="@+id/editTextTime"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="17sp"
-                    android:textStyle="bold"
-                    android:text="Route 3" />
+                    android:hint="Select Time"
+                    android:layout_marginTop="8dp"
+                    android:focusable="false"
+                    android:clickable="true"
+                    android:background="@drawable/custom_edittext"
+                    android:padding="12dp" />
 
-                <RadioButton
-                    android:id="@+id/radioRoute4"
-                    android:layout_width="wrap_content"
+                <!-- Create Button -->
+                <Button
+                    android:id="@+id/btnCreate"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="17sp"
-                    android:textStyle="bold"
-                    android:text="Route 4" />
-            </RadioGroup>
+                    android:layout_marginTop="16dp"
+                    android:backgroundTint="@color/black"
+                    android:text="Create"
+                    android:textColor="@android:color/white" />
 
-            <!-- Add Bus Number Section -->
-            <TextView
-                android:id="@+id/AddBusNumber"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:hint="Add Bus Number +"
-                android:layout_marginTop="16dp"
-                android:backgroundTint="#EDDED2D2"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="@android:color/black"
-                android:gravity="center_vertical"
-                android:clickable="true"
-                android:focusable="true" />
+            </LinearLayout>
+        </ScrollView>
 
-            <!-- Add Time Section -->
-            <EditText
-                android:id="@+id/AddTime"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Add Time 00:00"
-                android:layout_marginTop="8dp"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:backgroundTint="#EDDED2D2"
-                android:focusable="false"
-                android:clickable="true"
-                android:textColor="@android:color/black" />
-
-            <!-- Create Button -->
-            <Button
-                android:id="@+id/btnCreate"
-                android:layout_width="139dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="16dp"
-                android:backgroundTint="#0F6B12"
-                android:text="Create"
-                android:textColor="@android:color/white"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-        </LinearLayout>
     </LinearLayout>
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/nav_view"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="end"
-        app:menu="@menu/menu_navigation" />
+
+
 </androidx.drawerlayout.widget.DrawerLayout>

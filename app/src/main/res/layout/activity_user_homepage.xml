@@ -8,7 +8,6 @@
         android:id="@+id/topBar"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:background="@drawable/custom_button_background"
         android:elevation="40dp"
     >
 </androidx.appcompat.widget.Toolbar>

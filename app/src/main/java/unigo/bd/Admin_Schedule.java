@@ -19,7 +19,7 @@ public class Admin_Schedule extends AppCompatActivity {
 
     private RecyclerView recyclerViewSchedule;
     private ScheduleAdapter scheduleAdapter;
-    List<ScheduleItem> scheduleList;
+    private List<ScheduleItem> scheduleList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +42,9 @@ public class Admin_Schedule extends AppCompatActivity {
         // Add new schedule item
         btnAdd.setOnClickListener(v -> {
            // scheduleList.add(new ScheduleItem("Route A", "10:00 AM", "Bus 1"));
-            startActivity(new Intent(Admin_Schedule.this, AddSchedule.class));
-            scheduleAdapter.notifyDataSetChanged();
+            Intent intent = new Intent(Admin_Schedule.this, AddSchedule.class);
+            startActivityForResult(intent, 1);
+            //scheduleAdapter.notifyDataSetChanged();
         });
 
         // Mark completed and navigate to main
@@ -54,5 +55,25 @@ public class Admin_Schedule extends AppCompatActivity {
         Intent intent = new Intent(this, UserHomepage.class);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == RESULT_OK && data != null) {
+            String selectedFor = data.getStringExtra("selectedFor");
+            String routesSelected = data.getStringExtra("routesSelected");
+            String addTime = data.getStringExtra("addTime");
+            String selectedBusNumber = data.getStringExtra("selectedBusNumber");
+
+            // Add the new schedule item to the list
+            scheduleList.add(new ScheduleItem(routesSelected, addTime, selectedBusNumber));
+            scheduleAdapter.notifyDataSetChanged();
+        }
+    }
+
+    public void scheduleData(String selectedFor, String routesSelected, String addtime, String selectedBusNumber) {
+        scheduleList.add(new ScheduleItem(routesSelected,addtime, selectedBusNumber));
+        scheduleAdapter.notifyDataSetChanged();
     }
 }
