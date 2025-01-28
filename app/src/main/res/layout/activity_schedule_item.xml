@@ -3,26 +3,57 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="10dp">
+    android:padding="10dp"
+    android:background="@drawable/custom_edittext"
+    >
 
+    <!-- Route Text -->
     <TextView
         android:id="@+id/tvRoute"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="Route" />
+        android:text="Route"
+        android:textSize="16sp"
+        android:textColor="@android:color/black"
+        android:gravity="center_vertical" />
 
+    <!-- Time Text -->
     <TextView
         android:id="@+id/tvTime"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="Time" />
+        android:text="Time"
+        android:textSize="16sp"
+        android:textColor="@android:color/black"
+        android:gravity="center_vertical" />
 
+    <!-- Bus Text -->
     <TextView
         android:id="@+id/tvBus"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="Bus" />
+        android:text="Bus"
+        android:textSize="16sp"
+        android:textColor="@android:color/black"
+        android:gravity="center_vertical" />
+
+    <!-- Mark Completed Checkbox -->
+    <CheckBox
+        android:id="@+id/cbMarkCompleted"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:contentDescription="Mark as completed" />
+
+    <!-- Delete Button -->
+    <ImageButton
+        android:id="@+id/btnDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/delete"
+        android:background="@null"
+        android:contentDescription="Delete Schedule" />
 </LinearLayout>

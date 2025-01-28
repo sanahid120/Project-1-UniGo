@@ -2,25 +2,37 @@ package unigo.bd;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
-public class Admin_Schedule extends AppCompatActivity {
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Locale;
+
+public class Admin_Schedule extends AppCompatActivity implements ScheduleAdapter.OnScheduleActionListener {
 
     private RecyclerView recyclerViewSchedule;
     private ScheduleAdapter scheduleAdapter;
     private List<ScheduleItem> scheduleList;
-
+    private DatabaseReference databaseReference;
+    private String globalCatagory;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,52 +40,108 @@ public class Admin_Schedule extends AppCompatActivity {
 
         // Initialize views
         TextView btnAdd = findViewById(R.id.addButton);
-        TextView btnMarkCompleted = findViewById(R.id.markCompletedButton);
-        findViewById(R.id.btnBack).setOnClickListener(v -> navigateToMainActivity());
+        Button btnMarkCompleted = findViewById(R.id.markCompletedButton);
+        ImageButton btnBack = findViewById(R.id.btnBack);
+        Spinner spinnerCategory = findViewById(R.id.spinnerCategory);
 
+        // Back button functionality
+        btnBack.setOnClickListener(v -> finish());
+
+        // RecyclerView setup
         recyclerViewSchedule = findViewById(R.id.recyclerView);
         recyclerViewSchedule.setLayoutManager(new LinearLayoutManager(this));
 
         // Initialize list and adapter
         scheduleList = new ArrayList<>();
-        scheduleAdapter = new ScheduleAdapter(scheduleList);
+        scheduleAdapter = new ScheduleAdapter(scheduleList, this);
         recyclerViewSchedule.setAdapter(scheduleAdapter);
+        displayCurrentDateTime();
+        // Firebase reference (pointing to "student" node under "Schedules")
+        databaseReference = FirebaseDatabase.getInstance().getReference("Schedules");
 
-        // Add new schedule item
-        btnAdd.setOnClickListener(v -> {
-           // scheduleList.add(new ScheduleItem("Route A", "10:00 AM", "Bus 1"));
-            Intent intent = new Intent(Admin_Schedule.this, AddSchedule.class);
-            startActivityForResult(intent, 1);
-            //scheduleAdapter.notifyDataSetChanged();
+
+        spinnerCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String category = parent.getItemAtPosition(position).toString();
+                if (category.equals("Student")) {
+                    fetchSchedules("Student");
+                } else if (category.equals("Teacher")) {
+                    fetchSchedules("Teacher");
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                fetchSchedules("Student");
+            }
         });
 
-        // Mark completed and navigate to main
-        btnMarkCompleted.setOnClickListener(v -> navigateToMainActivity());
+        // Add new schedule
+        btnAdd.setOnClickListener(v -> {
+            Intent intent = new Intent(Admin_Schedule.this, AddSchedule.class);
+            startActivity(intent);
+        });
+
+        // Mark completed
+        btnMarkCompleted.setOnClickListener(v -> {
+            for (ScheduleItem schedule : scheduleList) {
+                if (schedule.isMarkedCompleted()) {
+                    databaseReference.child(schedule.getId()).removeValue();
+                }
+            }
+            fetchSchedules(globalCatagory);
+        });
     }
 
-    private void navigateToMainActivity() {
-        Intent intent = new Intent(this, UserHomepage.class);
-        startActivity(intent);
-        finish();
+    private void fetchSchedules(String category) {
+        globalCatagory=category;
+        databaseReference.child(category).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                scheduleList.clear();
+                for (DataSnapshot data : snapshot.getChildren()) {
+                    Schedule schedule = data.getValue(Schedule.class);
+                    if (schedule != null) {
+                        ScheduleItem scheduleItem = new ScheduleItem(
+                                schedule.route,
+                                schedule.time,
+                                schedule.busNumber
+                        );
+                        scheduleItem.setId(data.getKey());
+                        scheduleList.add(scheduleItem);
+                    }
+                }
+                scheduleAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Handle error
+            }
+        });
+    }
+
+    private void displayCurrentDateTime() {
+        // Get current date and time
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat formatter = new SimpleDateFormat("EEEE, MMM dd,yyyy\nHH:mm", Locale.getDefault());
+        String formattedDateTime = formatter.format(calendar.getTime());
+
+        // Display it in a TextView
+        TextView scheduleTitle = findViewById(R.id.scheduleTitle);
+        scheduleTitle.setText(formattedDateTime);
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1 && resultCode == RESULT_OK && data != null) {
-            String selectedFor = data.getStringExtra("selectedFor");
-            String routesSelected = data.getStringExtra("routesSelected");
-            String addTime = data.getStringExtra("addTime");
-            String selectedBusNumber = data.getStringExtra("selectedBusNumber");
-
-            // Add the new schedule item to the list
-            scheduleList.add(new ScheduleItem(routesSelected, addTime, selectedBusNumber));
-            scheduleAdapter.notifyDataSetChanged();
-        }
+    public void onMarkCompleted(ScheduleItem scheduleItem, boolean isChecked) {
+        scheduleItem.setMarkedCompleted(isChecked);
+        databaseReference.child(scheduleItem.getId()).child("markedCompleted").setValue(isChecked);
     }
 
-    public void scheduleData(String selectedFor, String routesSelected, String addtime, String selectedBusNumber) {
-        scheduleList.add(new ScheduleItem(routesSelected,addtime, selectedBusNumber));
-        scheduleAdapter.notifyDataSetChanged();
+    @Override
+    public void onDeleteSchedule(ScheduleItem scheduleItem) {
+        databaseReference.child(scheduleItem.getId()).removeValue();
+        fetchSchedules(globalCatagory); // Refresh the list after deletion
     }
 }

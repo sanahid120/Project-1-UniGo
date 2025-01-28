@@ -5,4 +5,10 @@
     <string name="mark_completed"><u>Mark Completed</u></string>
     <string name="add"><u>Add+</u></string>
     <string name="bussess">Bussess</string>
+
+    <string-array name="schedule_categories">
+        <item>Student</item>
+        <item>Teacher</item>
+    </string-array>
+
 </resources>

@@ -42,8 +42,9 @@ public class AddSchedule extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getActionBar().setDisplayShowTitleEnabled(false);
-
+        if (getSupportActionBar() != null) {   // remove the text from topBar of xml
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+        }
         loadRoutes();
         loadBusNumbers();
 

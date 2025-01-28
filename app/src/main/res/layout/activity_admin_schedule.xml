@@ -1,69 +1,101 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/image"
-    android:padding="2dp">
+    android:orientation="vertical"
+    android:padding="4dp">
 
-    <!-- Toolbar Section -->
+    <!-- Toolbar -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/topBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:elevation="4dp">
+        android:elevation="4dp"
+        android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
 
-        <!-- Back Button inside Toolbar -->
+        <!-- Back Button -->
         <ImageButton
             android:id="@+id/btnBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_arrow_back"
-            android:contentDescription="Back"
             android:background="@null"
-            android:padding="8dp"
             android:layout_gravity="start" />
+
+        <TextView
+            android:id="@+id/toolbarTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Admin Schedule"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            android:layout_gravity="center" />
     </androidx.appcompat.widget.Toolbar>
 
-    <!-- Schedule Title -->
-    <TextView
-        android:id="@+id/scheduleTitle"
-        android:layout_width="wrap_content"
+    <!-- Day and Date Title -->
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Sunday (Date)"
-        android:textSize="18sp"
-        android:layout_below="@id/topBar"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp" />
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/scheduleTitle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="16dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Tuesday, January 28"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+        <Spinner
+            android:id="@+id/spinnerCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:entries="@array/schedule_categories" />
+
+    </LinearLayout>
 
     <!-- Add and Mark Completed Buttons -->
-    <TextView
-        android:id="@+id/addButton"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/add"
-        android:clickable="true"
-        android:focusable="true"
-        android:textColor="#0000FF"
-        android:layout_below="@id/scheduleTitle"
-        android:layout_alignParentStart="true"
-        android:layout_margin="8dp" />
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/markCompletedButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/mark_completed"
-        android:textColor="#0000FF"
-        android:clickable="true"
-        android:focusable="true"
-        android:layout_below="@id/scheduleTitle"
-        android:layout_alignParentEnd="true"
-        android:layout_margin="8dp" />
+        <Button
+            android:id="@+id/addButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/black"
+            android:text="@string/add"
+            android:textColor="@android:color/white" />
 
-    <!-- RecyclerView -->
+        <Button
+            android:id="@+id/markCompletedButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/black"
+            android:text="@string/mark_completed"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+
+    <!-- RecyclerView for Schedule List -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/addButton"
-        android:layout_marginTop="16dp" />
-</RelativeLayout>
+        android:layout_height="match_parent"
+        android:layout_marginTop="12dp"
+        android:elevation="4dp"
+        android:paddingBottom="16dp" />
+</LinearLayout>
