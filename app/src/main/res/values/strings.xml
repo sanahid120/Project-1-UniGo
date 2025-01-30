@@ -5,6 +5,8 @@
     <string name="mark_completed"><u>Mark Completed</u></string>
     <string name="add"><u>Add+</u></string>
     <string name="bussess">Bussess</string>
+    <string name="delete">Delete</string>
+    <string name="edit">Edit</string>
 
     <string-array name="schedule_categories">
         <item>Student</item>

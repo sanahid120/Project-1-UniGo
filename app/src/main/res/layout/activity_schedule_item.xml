@@ -14,9 +14,9 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="Route"
-        android:textSize="16sp"
+        android:textSize="18sp"
         android:textColor="@android:color/black"
-        android:gravity="center_vertical" />
+        android:gravity="center" />
 
     <!-- Time Text -->
     <TextView
@@ -25,9 +25,9 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="Time"
-        android:textSize="16sp"
+        android:textSize="18sp"
         android:textColor="@android:color/black"
-        android:gravity="center_vertical" />
+        android:gravity="center" />
 
     <!-- Bus Text -->
     <TextView
@@ -36,9 +36,9 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="Bus"
-        android:textSize="16sp"
+        android:textSize="18sp"
         android:textColor="@android:color/black"
-        android:gravity="center_vertical" />
+        android:gravity="center" />
 
     <!-- Mark Completed Checkbox -->
     <CheckBox
@@ -48,12 +48,5 @@
         android:layout_marginEnd="8dp"
         android:contentDescription="Mark as completed" />
 
-    <!-- Delete Button -->
-    <ImageButton
-        android:id="@+id/btnDelete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/delete"
-        android:background="@null"
-        android:contentDescription="Delete Schedule" />
+
 </LinearLayout>

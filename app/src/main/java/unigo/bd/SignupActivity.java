@@ -101,11 +101,12 @@ public class SignupActivity extends AppCompatActivity {
                 confirmedPassword.requestFocus();
                 return;
             }
-            progressBar.setVisibility(View.VISIBLE);
+
             // Attempt to create a new user
             mAuth.createUserWithEmailAndPassword(mail, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
+                    progressBar.setVisibility(View.VISIBLE);
                     if (task.isSuccessful()) {
                         // Send verification email
                         mAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(verificationTask -> {
@@ -119,6 +120,7 @@ public class SignupActivity extends AppCompatActivity {
                                         progressBar.setVisibility(View.GONE);
                                     } else {
                                         Toast.makeText(SignupActivity.this, "Failed to save user data: " + Task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                        progressBar.setVisibility(View.GONE);
                                     }
                                 });
                                 mAuth.signOut();

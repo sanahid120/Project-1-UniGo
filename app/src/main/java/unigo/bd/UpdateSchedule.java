@@ -13,12 +13,11 @@ import com.google.firebase.database.*;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class AddSchedule extends AppCompatActivity {
+public class UpdateSchedule extends AppCompatActivity {
 
     private Spinner spinnerRoutes, spinnerBusNumbers;
     private EditText editTextTime;
-    private Button btnCreate;
-    private RadioGroup radioGroupFor;
+    private Button btnUpdate;
     private ImageButton backButton;
 
     private DatabaseReference databaseReference;
@@ -28,7 +27,7 @@ public class AddSchedule extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_schedule);
+        setContentView(R.layout.activity_update_schedule);
 
         // Initialize Firebase database reference
         databaseReference = FirebaseDatabase.getInstance().getReference();
@@ -36,10 +35,8 @@ public class AddSchedule extends AppCompatActivity {
         spinnerRoutes = findViewById(R.id.spinnerRoutes);
         spinnerBusNumbers = findViewById(R.id.spinnerBusNumbers);
         editTextTime = findViewById(R.id.editTextTime);
-        btnCreate = findViewById(R.id.btnCreate);
-        radioGroupFor = findViewById(R.id.radioGroupFor);
+        btnUpdate = findViewById(R.id.btnUpdate);
         backButton = findViewById(R.id.back_button);
-
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {   // remove the text from topBar of xml
@@ -51,10 +48,6 @@ public class AddSchedule extends AppCompatActivity {
         // Handle Time Picker
         editTextTime.setOnClickListener(v -> showTimePickerDialog());
 
-        // Handle Create Button
-        btnCreate.setOnClickListener(v -> saveScheduleToFirebase());
-
-        // Handle Back Button
         backButton.setOnClickListener(v -> finish());
 
         Intent intent = getIntent();
@@ -66,14 +59,9 @@ public class AddSchedule extends AppCompatActivity {
             spinnerRoutes.setSelection(routesList.indexOf(intent.getStringExtra("ROUTE")));
             spinnerBusNumbers.setSelection(busNumbersList.indexOf(intent.getStringExtra("BUS")));
             editTextTime.setText(intent.getStringExtra("TIME"));
-            // Set the selected RadioButton in the RadioGroup
-            if ("Student".equals(category)) {
-                radioGroupFor.check(R.id.radioStudent); // Replace with your actual RadioButton ID
-            } else if ("Teacher".equals(category)) {
-                radioGroupFor.check(R.id.radioTeacher); // Replace with your actual RadioButton ID
-            }
+
             // Update Firebase on save
-            btnCreate.setOnClickListener(v -> {
+            btnUpdate.setOnClickListener(v -> {
                 String selectedRoute = spinnerRoutes.getSelectedItem().toString();
                 String selectedBusNumber = spinnerBusNumbers.getSelectedItem().toString();
                 String selectedTime = editTextTime.getText().toString();
@@ -113,17 +101,17 @@ public class AddSchedule extends AppCompatActivity {
                     }
                 }
                 if (!busNumbersList.isEmpty()) {
-                    ArrayAdapter<String> adapter = new ArrayAdapter<>(AddSchedule.this, android.R.layout.simple_spinner_item, busNumbersList);
+                    ArrayAdapter<String> adapter = new ArrayAdapter<>(UpdateSchedule.this, android.R.layout.simple_spinner_item, busNumbersList);
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     spinnerBusNumbers.setAdapter(adapter);
                 } else {
-                    Toast.makeText(AddSchedule.this, "No bus numbers found in Firebase", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UpdateSchedule.this, "No bus numbers found in Firebase", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(AddSchedule.this, "Failed to load bus numbers", Toast.LENGTH_SHORT).show();
+                Toast.makeText(UpdateSchedule.this, "Failed to load bus numbers", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -138,42 +126,5 @@ public class AddSchedule extends AppCompatActivity {
         timePickerDialog.show();
     }
 
-    private void saveScheduleToFirebase() {
-        String selectedFor = ((RadioButton) findViewById(radioGroupFor.getCheckedRadioButtonId())).getText().toString();
-        String selectedRoute = spinnerRoutes.getSelectedItem().toString();
-        String selectedBusNumber = spinnerBusNumbers.getSelectedItem().toString();
-        String selectedTime = editTextTime.getText().toString();
-
-        if (selectedRoute.isEmpty() || selectedBusNumber.isEmpty() || selectedTime.isEmpty()) {
-            Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        DatabaseReference scheduleRef = databaseReference.child(selectedFor);
-
-        String key = scheduleRef.push().getKey();
-
-        if (key != null) {
-            Schedule schedule = new Schedule(selectedRoute, selectedBusNumber, selectedTime);
-            scheduleRef.child(key).setValue(schedule)
-                    .addOnSuccessListener(aVoid -> Toast.makeText(AddSchedule.this, "Schedule added successfully", Toast.LENGTH_SHORT).show())
-                    .addOnFailureListener(e -> Toast.makeText(AddSchedule.this, "Failed to add schedule", Toast.LENGTH_SHORT).show());
-        } else {
-            Toast.makeText(this, "Error: Unable to generate schedule ID", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.add_schedule_menu, menu);
-        return true;
-    }
-
-    private void restartActivity() {
-        // Restart the current activity
-        Intent intent = getIntent();
-        finish(); // Finish the current instance
-        startActivity(intent); // Start a new instance
-    }
 
 }

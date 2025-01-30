@@ -5,6 +5,7 @@ public class ScheduleItem {
     private String route;
     private String time;
     private String bus;
+    private String type;
     private boolean markedCompleted;
 
     public ScheduleItem(){
@@ -14,7 +15,6 @@ public class ScheduleItem {
         this.route = route;
         this.time = time;
         this.bus = bus;
-        this.markedCompleted = false; // Default value
     }
 
     public String getId() {
@@ -36,6 +36,8 @@ public class ScheduleItem {
     public String getTime() {
         return time;
     }
+    public String getType(){return  type;}
+    public void setType(String type){this.type=type; }
 
     public void setTime(String time) {
         this.time = time;

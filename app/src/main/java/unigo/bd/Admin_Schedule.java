@@ -1,13 +1,21 @@
 package unigo.bd;
 
+import static unigo.bd.R.id.login_menu;
+import static unigo.bd.R.id.logout;
+import static unigo.bd.R.id.menu_logout;
+
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,7 +40,7 @@ public class Admin_Schedule extends AppCompatActivity implements ScheduleAdapter
     private ScheduleAdapter scheduleAdapter;
     private List<ScheduleItem> scheduleList;
     private DatabaseReference databaseReference;
-    private String globalCatagory;
+    public String globalCatagory;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,14 +58,12 @@ public class Admin_Schedule extends AppCompatActivity implements ScheduleAdapter
         // RecyclerView setup
         recyclerViewSchedule = findViewById(R.id.recyclerView);
         recyclerViewSchedule.setLayoutManager(new LinearLayoutManager(this));
-
         // Initialize list and adapter
         scheduleList = new ArrayList<>();
         scheduleAdapter = new ScheduleAdapter(scheduleList, this);
         recyclerViewSchedule.setAdapter(scheduleAdapter);
         displayCurrentDateTime();
-        // Firebase reference (pointing to "student" node under "Schedules")
-        databaseReference = FirebaseDatabase.getInstance().getReference("Schedules");
+        databaseReference = FirebaseDatabase.getInstance().getReference();
 
 
         spinnerCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -70,7 +76,6 @@ public class Admin_Schedule extends AppCompatActivity implements ScheduleAdapter
                     fetchSchedules("Teacher");
                 }
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 fetchSchedules("Student");
@@ -107,7 +112,7 @@ public class Admin_Schedule extends AppCompatActivity implements ScheduleAdapter
                                 schedule.route,
                                 schedule.time,
                                 schedule.busNumber
-                        );
+                                );
                         scheduleItem.setId(data.getKey());
                         scheduleList.add(scheduleItem);
                     }
@@ -125,7 +130,7 @@ public class Admin_Schedule extends AppCompatActivity implements ScheduleAdapter
     private void displayCurrentDateTime() {
         // Get current date and time
         Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat formatter = new SimpleDateFormat("EEEE, MMM dd,yyyy\nHH:mm", Locale.getDefault());
+        SimpleDateFormat formatter = new SimpleDateFormat("EEEE, MMM dd,yyyy", Locale.getDefault());
         String formattedDateTime = formatter.format(calendar.getTime());
 
         // Display it in a TextView
@@ -136,12 +141,28 @@ public class Admin_Schedule extends AppCompatActivity implements ScheduleAdapter
     @Override
     public void onMarkCompleted(ScheduleItem scheduleItem, boolean isChecked) {
         scheduleItem.setMarkedCompleted(isChecked);
-        databaseReference.child(scheduleItem.getId()).child("markedCompleted").setValue(isChecked);
+        databaseReference.child(scheduleItem.getId()).child("Schedule").child(globalCatagory);
     }
 
     @Override
     public void onDeleteSchedule(ScheduleItem scheduleItem) {
         databaseReference.child(scheduleItem.getId()).removeValue();
         fetchSchedules(globalCatagory); // Refresh the list after deletion
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.schedule_menu, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId()== menu_logout){
+            Toast.makeText(this, "Logging Out...", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(Admin_Schedule.this,SignupActivity.class));
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
