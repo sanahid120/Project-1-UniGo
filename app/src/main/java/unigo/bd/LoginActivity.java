@@ -56,7 +56,6 @@ public class LoginActivity extends AppCompatActivity {
                     email.requestFocus();
                     return;
                 }
-
                 if (pass.isEmpty()) {
                     password.setError("Password field is empty");
                     password.requestFocus();
@@ -67,6 +66,7 @@ public class LoginActivity extends AppCompatActivity {
                 mAuth.signInWithEmailAndPassword(mail, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
+
                         if (task.isSuccessful()) {
                             // Check if the user's email is verified
                             if (mAuth.getCurrentUser().isEmailVerified()) {

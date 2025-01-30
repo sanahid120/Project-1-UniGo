@@ -90,12 +90,7 @@ public class Admin_Schedule extends AppCompatActivity implements ScheduleAdapter
 
         // Mark completed
         btnMarkCompleted.setOnClickListener(v -> {
-            for (ScheduleItem schedule : scheduleList) {
-                if (schedule.isMarkedCompleted()) {
-                    databaseReference.child(schedule.getId()).removeValue();
-                }
-            }
-            fetchSchedules(globalCatagory);
+
         });
     }
 

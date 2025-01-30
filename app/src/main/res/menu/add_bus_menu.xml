@@ -3,16 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/update_add_bus"
-        android:title="Update"
-        app:showAsAction="never"
-        />
-    <item
-        android:id="@+id/delete_add_bus"
-        android:title="Delete"
-        app:showAsAction="never"
-        />
-    <item
         android:id="@+id/home_from_addBus"
         android:title="Home"
         app:showAsAction="never"

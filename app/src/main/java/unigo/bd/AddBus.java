@@ -189,10 +189,6 @@ public class AddBus extends AppCompatActivity {
     private boolean handleMenuSelection(int itemId) {
         if (itemId == R.id.home_from_addBus) {
             startActivity(new Intent(AddBus.this,UserHomepage.class));
-        } else if (itemId == R.id.update_add_bus) {
-            Toast.makeText(this, "Select a bus to update.", Toast.LENGTH_SHORT).show();
-        } else if (itemId == R.id.delete_add_bus) {
-            Toast.makeText(this, "Select a bus to delete.", Toast.LENGTH_SHORT).show();
         }
         else if (itemId == R.id.logout) {
             Toast.makeText(this, "Logging out...", Toast.LENGTH_SHORT).show();

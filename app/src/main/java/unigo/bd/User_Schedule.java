@@ -1,14 +1,24 @@
 package unigo.bd;
 
+import static unigo.bd.R.id.login_menu;
+import static unigo.bd.R.id.toolbar;
+import static unigo.bd.R.id.topBar;
+
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -39,7 +49,11 @@ public class User_Schedule extends AppCompatActivity {
         ImageButton btnBack = findViewById(R.id.back_button);
         Spinner spinnerCategory = findViewById(R.id.spinnerCategory);
         TextView scheduleTitle = findViewById(R.id.scheduleTitle);
-
+        Toolbar toolbar = findViewById(R.id.topBar);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {   // remove the text from topBar of xml
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+        }
         // Back button functionality
         btnBack.setOnClickListener(v -> finish());
 
@@ -97,5 +111,21 @@ public class User_Schedule extends AppCompatActivity {
         SimpleDateFormat formatter = new SimpleDateFormat("EEEE, MMM dd, yyyy", Locale.getDefault());
         String formattedDate = formatter.format(Calendar.getInstance().getTime());
         scheduleTitle.setText(formattedDate);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.user_schedule_menu, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId()== login_menu){
+            Toast.makeText(this, "Login/Register Button Selected", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(User_Schedule.this,SignupActivity.class));
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -38,6 +38,7 @@ private Button stuff,student,faculty,notice;
         });
         faculty.setOnClickListener(v->{
             Toast.makeText(this, "You Clicked Faculty Button!", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(UserHomepage.this,AddBus.class));
         });
         notice.setOnClickListener(v->{
             Toast.makeText(this, "You Clicked Notice Button!", Toast.LENGTH_SHORT).show();
@@ -49,6 +50,7 @@ private Button stuff,student,faculty,notice;
         inflater.inflate(R.menu.homepage_menu, menu);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId()== login_menu){

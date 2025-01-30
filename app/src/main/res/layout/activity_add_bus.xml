@@ -26,26 +26,25 @@
                 android:src="@drawable/ic_arrow_back"
                 android:background="@null"
                 android:contentDescription="Back" />
+            <TextView
+                android:id="@+id/toolbarTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add Bus"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:layout_gravity="center" />
+
 
         </androidx.appcompat.widget.Toolbar>
-        <TextView
-            android:id="@+id/bustextview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/bussess"
-            android:textAppearance="@color/black"
-            android:textAllCaps="true"
-            android:textSize="20sp"
-            android:textAlignment="center"
-            android:layout_centerInParent="true"
-            android:layout_below="@+id/toolbar"
-            />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/bus_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/bustextview"
+            android:layout_below="@id/toolbar"
             android:padding="16dp"
+            android:layout_marginTop="20dp"
             android:scrollbars="vertical" />
 
         <!-- Floating "+" Button for Adding Task -->

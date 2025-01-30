@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/adminHomepage"
+        android:title="Home"
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/AddBus"
+        android:title="Add Bus"
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/noticeBoard"
+        android:title="Notice Board"
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/schedule"
+        android:title="Schedule"
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/logout"
+        android:title="LogOut"
+        app:showAsAction="never"
+        />
+</menu>

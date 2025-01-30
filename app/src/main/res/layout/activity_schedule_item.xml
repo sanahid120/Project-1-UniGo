@@ -44,7 +44,7 @@
     <!-- Mark Completed Checkbox -->
     <ImageButton
         android:id="@+id/deleteId"
-        android:layout_width="wrap_content"
+        android:layout_width="90dp"
         android:layout_height="wrap_content"
         android:src="@drawable/delete"
         android:background="@null"
