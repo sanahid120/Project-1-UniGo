@@ -30,6 +30,7 @@ private Button stuff,student,faculty,notice;
 
         stuff.setOnClickListener(v->{
             Toast.makeText(this, "You Clicked Stuff Button!", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(UserHomepage.this, User_Schedule.class));
         });
         student.setOnClickListener(v->{
             Toast.makeText(this, "You Clicked Student Button!", Toast.LENGTH_SHORT).show();

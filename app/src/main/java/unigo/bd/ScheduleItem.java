@@ -8,13 +8,22 @@ public class ScheduleItem {
     private String type;
     private boolean markedCompleted;
 
-    public ScheduleItem(){
-
+    public ScheduleItem() {
+        // Default constructor
     }
+
     public ScheduleItem(String route, String time, String bus) {
         this.route = route;
         this.time = time;
         this.bus = bus;
+    }
+
+    // New constructor
+    public ScheduleItem(String route, String time, String bus, String id) {
+        this.route = route;
+        this.time = time;
+        this.bus = bus;
+        this.id = id;
     }
 
     public String getId() {
@@ -36,8 +45,6 @@ public class ScheduleItem {
     public String getTime() {
         return time;
     }
-    public String getType(){return  type;}
-    public void setType(String type){this.type=type; }
 
     public void setTime(String time) {
         this.time = time;
@@ -49,6 +56,14 @@ public class ScheduleItem {
 
     public void setBus(String bus) {
         this.bus = bus;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public boolean isMarkedCompleted() {

@@ -119,13 +119,13 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Schedu
 
     static class ScheduleViewHolder extends RecyclerView.ViewHolder {
         TextView tvRoute, tvTime, tvBus;
-        CheckBox cbMarkCompleted;
+        ImageButton delete;
         public ScheduleViewHolder(@NonNull View itemView) {
             super(itemView);
             tvRoute = itemView.findViewById(R.id.tvRoute);
             tvTime = itemView.findViewById(R.id.tvTime);
             tvBus = itemView.findViewById(R.id.tvBus);
-            cbMarkCompleted = itemView.findViewById(R.id.cbMarkCompleted);
+            delete = itemView.findViewById(R.id.deleteId);
         }
     }
 }

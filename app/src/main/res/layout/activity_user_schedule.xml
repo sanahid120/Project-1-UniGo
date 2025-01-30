@@ -37,6 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:id="@+id/TimeandDate"
         android:layout_below="@id/topBar"
         android:layout_marginTop="20dp"
         android:orientation="vertical">
@@ -57,6 +58,48 @@
             android:layout_height="wrap_content"
             android:entries="@array/schedule_categories"
             android:gravity="center" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/TimeandDate"
+        android:orientation="horizontal"
+        android:layout_marginTop="50dp"
+        android:padding="10dp">
+        <!-- Route Text -->
+        <TextView
+            android:id="@+id/tvRoute"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Route"
+            android:textColor="@android:color/black"
+            android:textSize="18sp" />
+
+        <!-- Time Text -->
+        <TextView
+            android:id="@+id/tvTime"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Time"
+            android:textColor="@android:color/black"
+            android:textSize="18sp" />
+
+        <!-- Bus Text -->
+        <TextView
+            android:id="@+id/tvBus"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Bus"
+            android:textColor="@android:color/black"
+            android:textSize="18sp" />
     </LinearLayout>
 
     <!-- RecyclerView for Schedule List -->
