@@ -30,21 +30,19 @@ import java.util.ArrayList;
 
 public class AddBus extends AppCompatActivity {
 
-    private DrawerLayout drawerLayout;
     private RecyclerView busListRecyclerView;
     private BusAdapter busAdapter;
     private ImageButton addButton;
     private ImageButton backButton;
 
     private DatabaseReference databaseReference;
-    private ArrayList<String> busList;
+    private ArrayList<Bus> busList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_bus);
         // Initialize views
-        drawerLayout = findViewById(R.id.drawerLayout);
         Toolbar toolbar = findViewById(R.id.toolbar);
         busListRecyclerView = findViewById(R.id.bus_list);
         addButton = findViewById(R.id.addButton);
@@ -56,14 +54,14 @@ public class AddBus extends AppCompatActivity {
 
         // Initialize Firebase Realtime Database reference
         databaseReference = FirebaseDatabase.getInstance().getReference("buses");
-        busList = new ArrayList<>();
+        busList = new ArrayList<Bus>();
 
         // Back button functionality
         backButton.setOnClickListener(v -> finish());
 
         // Set up RecyclerView
         busListRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        busAdapter =new BusAdapter(busList, this::showUpdateDeleteDialog);
+        busAdapter =new BusAdapter(busList);
         busListRecyclerView.setAdapter(busAdapter);
 
         // Floating action button click handler
@@ -98,11 +96,13 @@ public class AddBus extends AppCompatActivity {
 
 
     private void addBusToFirebase(String busNumber) {
-        String busId = databaseReference.push().getKey();
+        String busId = databaseReference.push().getKey(); // Generate a unique ID
         if (busId != null) {
-            databaseReference.child(busId).setValue(busNumber).addOnCompleteListener(task -> {
+            Bus newBus = new Bus(busNumber); // Create a new Bus object
+            newBus.setId(busId); // Set the generated ID
+            databaseReference.child(busId).setValue(newBus).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
-                    Toast.makeText(this, "Bus Number Added: " + busNumber, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Bus Added: " + busNumber, Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(this, "Failed to add bus!", Toast.LENGTH_SHORT).show();
                 }
@@ -110,16 +110,19 @@ public class AddBus extends AppCompatActivity {
         }
     }
 
+
     private void loadBusData() {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 busList.clear();
                 for (DataSnapshot busSnapshot : snapshot.getChildren()) {
-                    String busNumber = busSnapshot.getValue(String.class);
-                    busList.add(busNumber);
+                    Bus bus = busSnapshot.getValue(Bus.class); // Map data to Bus class
+                    if (bus != null) {
+                        busList.add(bus); // Add the Bus object to the list
+                    }
                 }
-                busAdapter.notifyDataSetChanged();
+                busAdapter.notifyDataSetChanged(); // Notify adapter about data changes
             }
 
             @Override
@@ -129,51 +132,6 @@ public class AddBus extends AppCompatActivity {
         });
     }
 
-    private void showUpdateDeleteDialog(String busId, String currentBusNumber) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Update/Delete Bus Number");
-
-        // Input field for updating
-        final EditText input = new EditText(this);
-        input.setInputType(InputType.TYPE_CLASS_TEXT);
-        input.setText(currentBusNumber);
-        builder.setView(input);
-
-        builder.setPositiveButton("Update", (dialog, which) -> {
-            String updatedBusNumber = input.getText().toString().trim();
-            if (!updatedBusNumber.isEmpty()) {
-                updateBusInFirebase(busId, updatedBusNumber);
-            } else {
-                Toast.makeText(this, "Bus Number cannot be empty!", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        builder.setNegativeButton("Delete", (dialog, which) -> deleteBusFromFirebase(busId));
-
-        builder.setNeutralButton("Cancel", (dialog, which) -> dialog.cancel());
-
-        builder.show();
-    }
-
-    private void updateBusInFirebase(String busId, String updatedBusNumber) {
-        databaseReference.child(busId).setValue(updatedBusNumber).addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                Toast.makeText(this, "Bus Number Updated", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(this, "Failed to update bus!", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void deleteBusFromFirebase(String busId) {
-        databaseReference.child(busId).removeValue().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                Toast.makeText(this, "Bus Number Deleted", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(this, "Failed to delete bus!", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

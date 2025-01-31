@@ -4,7 +4,8 @@ public class Bus {
     private String id;
     private String busNumber;
 
-    public Bus() {}
+    // Default constructor required for Firebase
+    public Bus() { }
 
     public Bus(String busNumber) {
         this.busNumber = busNumber;

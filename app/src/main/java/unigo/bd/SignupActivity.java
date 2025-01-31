@@ -134,8 +134,10 @@ public class SignupActivity extends AppCompatActivity {
                     } else {
                         if (task.getException() instanceof FirebaseAuthUserCollisionException) {
                             Toast.makeText(SignupActivity.this, "User already exists! Please log in.", Toast.LENGTH_SHORT).show();
+                            progressBar.setVisibility(View.GONE );
                         } else {
                             Toast.makeText(SignupActivity.this, "Registration failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            progressBar.setVisibility(View.GONE );
                         }
                     }
                 }

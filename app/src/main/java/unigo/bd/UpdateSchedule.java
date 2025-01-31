@@ -95,9 +95,9 @@ public class UpdateSchedule extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 busNumbersList.clear();
                 for (DataSnapshot busSnapshot : snapshot.getChildren()) {
-                    String busNumber = busSnapshot.getValue(String.class);
-                    if (busNumber != null) {
-                        busNumbersList.add(busNumber);
+                    Bus bus = busSnapshot.getValue(Bus.class);
+                    if (bus != null) {
+                        busNumbersList.add(bus.getBusNumber()); // Add only the bus number
                     }
                 }
                 if (!busNumbersList.isEmpty()) {
