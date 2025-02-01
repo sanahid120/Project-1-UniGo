@@ -49,6 +49,7 @@ public class Admin_Homepage extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId()== R.id.id_logout){
             Toast.makeText(this, "logging Out...", Toast.LENGTH_SHORT).show();
+            new SessionManager(Admin_Homepage.this).logout();
             startActivity(new Intent(Admin_Homepage.this,LoginActivity.class));
             return true;
         } else if (item.getItemId()==R.id.id_userHomepage) {

@@ -4,6 +4,7 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.*;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -150,7 +151,6 @@ public class AddSchedule extends AppCompatActivity {
         }
 
         DatabaseReference scheduleRef = databaseReference.child(selectedFor);
-
         String key = scheduleRef.push().getKey();
 
         if (key != null) {
@@ -168,12 +168,19 @@ public class AddSchedule extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.add_schedule_menu, menu);
         return true;
     }
-
-    private void restartActivity() {
-        // Restart the current activity
-        Intent intent = getIntent();
-        finish(); // Finish the current instance
-        startActivity(intent); // Start a new instance
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId()== R.id.logout_addSchedule){
+            Toast.makeText(this, "logging Out...", Toast.LENGTH_SHORT).show();
+            new SessionManager(AddSchedule.this).logout();
+            startActivity(new Intent(AddSchedule.this,UserHomepage.class));
+            return true;
+        } else if (item.getItemId()==R.id.home_from_addSchedule) {
+            Toast.makeText(this, "Navigating to Homepage...", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(AddSchedule.this,Admin_Homepage.class));
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
+
 
 }

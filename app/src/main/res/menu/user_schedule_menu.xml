@@ -2,18 +2,21 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/user_home"
+        android:id="@+id/user_home_from_UserSchedule"
         android:title="Home"
         app:showAsAction="never"/>
     <item
-        android:id="@+id/login_register"
-        android:title="Login/Register"
-        app:showAsAction="never"/>
+        android:id="@+id/login_userSchedule"
+        android:title="LogIn"
+        app:showAsAction="never" /><item
+        android:id="@+id/logout_userSchedule"
+        android:title="LogOut"
+        app:showAsAction="never" />
     <item
-        android:id="@+id/requestBus_id"
-        android:title="Request Bus" />
+        android:id="@+id/requestBus_id_userSchedule"
+        android:title="Request Bus" app:showAsAction="never" />
 
     <item
-        android:id="@+id/noticeBoardId"
-        android:title="Notice Board" />
+        android:id="@+id/noticeBoardId_userSchedule"
+        android:title="Notice Board" app:showAsAction="never"/>
 </menu>

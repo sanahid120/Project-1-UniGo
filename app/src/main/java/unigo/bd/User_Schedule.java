@@ -1,8 +1,7 @@
 package unigo.bd;
 
-import static unigo.bd.R.id.login_menu;
-import static unigo.bd.R.id.toolbar;
-import static unigo.bd.R.id.topBar;
+import static unigo.bd.R.id.login_menu_user;
+import static unigo.bd.R.id.login_userSchedule;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -117,14 +116,42 @@ public class User_Schedule extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.user_schedule_menu, menu);
+        MenuItem loginItem = menu.findItem(login_userSchedule);
+        MenuItem logoutItem = menu.findItem(R.id.logout_userSchedule);
+        MenuItem requestBusItem = menu.findItem(R.id.requestBus_id_userSchedule);
+SessionManager sessionManager= new SessionManager(this);
+        if (sessionManager.isLoggedIn()) {
+            loginItem.setVisible(false);
+            logoutItem.setVisible(true);
+            requestBusItem.setVisible(true);
+        } else {
+            loginItem.setVisible(true);
+            logoutItem.setVisible(false);
+            requestBusItem.setVisible(false);
+        }
         return true;
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId()== login_menu){
-            Toast.makeText(this, "Login/Register Button Selected", Toast.LENGTH_SHORT).show();
+        if(item.getItemId()== login_userSchedule){
+            Toast.makeText(this, "Navigate to Login...", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(User_Schedule.this,LoginActivity.class));
+            return true;
+        }else if(item.getItemId()== login_userSchedule){
+            Toast.makeText(this, "Logging Out...", Toast.LENGTH_SHORT).show();
+            new SessionManager(this).logout();
             startActivity(new Intent(User_Schedule.this,SignupActivity.class));
             return true;
+        }else if(item.getItemId()== R.id.requestBus_id_userSchedule){
+            Toast.makeText(this, "Not Functional Yet...", Toast.LENGTH_SHORT).show();
+            return true;
+        }else if(item.getItemId()== R.id.noticeBoardId_userSchedule){
+            Toast.makeText(this, "Navigating to NoticeBoard...", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(User_Schedule.this,NoticeBoard.class));
+            return true;
+        }
+        else {
+            startActivity(new Intent(User_Schedule.this, UserHomepage.class));
         }
         return super.onOptionsItemSelected(item);
     }

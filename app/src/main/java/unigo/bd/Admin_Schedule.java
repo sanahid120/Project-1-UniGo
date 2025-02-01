@@ -161,6 +161,7 @@ public class Admin_Schedule extends AppCompatActivity implements ScheduleAdapter
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId()== id_logout_Schedule){
             Toast.makeText(this, "Logging Out...", Toast.LENGTH_SHORT).show();
+            new SessionManager(this).logout();
             startActivity(new Intent(Admin_Schedule.this,LoginActivity.class));
             return true;
         } else if (item.getItemId()== id_noticeBoard_Schedule){

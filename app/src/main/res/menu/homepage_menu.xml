@@ -6,8 +6,18 @@
 
 
     <item
-        android:id="@+id/login_menu"
-        android:title="LogIn/Register"
+        android:id="@+id/login_menu_user"
+        android:title="LogIn"
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/logout_user_menu"
+        android:title="LogOut"
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/requestBus_user_menu"
+        android:title="Request Bus"
         app:showAsAction="never"
         />
 </menu>

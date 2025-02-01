@@ -150,6 +150,7 @@ public class AddBus extends AppCompatActivity {
         }
         else if (itemId == R.id.logout) {
             Toast.makeText(this, "Logging out...", Toast.LENGTH_SHORT).show();
+            new SessionManager(this).logout();
             startActivity(new Intent(AddBus.this,UserHomepage.class));
             finish();
         }

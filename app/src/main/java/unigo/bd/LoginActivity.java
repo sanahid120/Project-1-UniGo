@@ -30,12 +30,13 @@ public class LoginActivity extends AppCompatActivity {
     private TextView register;
     private FirebaseAuth mAuth;
     private DatabaseReference userRef;
+    SessionManager sessionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        sessionManager= new SessionManager(LoginActivity.this);
         // Initialize UI elements
         email = findViewById(R.id.et_login_email);
         password = findViewById(R.id.et_login_password);
@@ -87,6 +88,7 @@ public class LoginActivity extends AppCompatActivity {
                     if (adminEmail != null && adminPassword != null && adminEmail.equals(mail) && adminPassword.equals(pass)) {
                         progressBar.setVisibility(View.GONE);
                         Toast.makeText(LoginActivity.this, "Admin Login Successful!", Toast.LENGTH_SHORT).show();
+                        sessionManager.saveLoginState("admin");
                         startActivity(new Intent(LoginActivity.this, Admin_Homepage.class));
                         finish();
                     } else {
@@ -116,6 +118,7 @@ public class LoginActivity extends AppCompatActivity {
             if (task.isSuccessful()) {
                 if (mAuth.getCurrentUser() != null && mAuth.getCurrentUser().isEmailVerified()) {
                     Toast.makeText(LoginActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
+                    sessionManager.saveLoginState("user");
                     startActivity(new Intent(LoginActivity.this, UserHomepage.class));
                     finish();
                 } else {

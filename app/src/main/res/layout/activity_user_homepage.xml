@@ -21,48 +21,20 @@
 
         <!-- Student Button -->
         <Button
-            android:id="@+id/btnStudent"
+            android:id="@+id/btnSchedule"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
             android:layout_margin="8dp"
             android:background="@drawable/custom_button_background"
-            android:text="Student"
+            android:text="Schedule"
             android:textAllCaps="true"
             android:textColor="@android:color/black"
             android:textSize="18sp"
             />
 
         <!-- Faculty Button -->
-        <Button
-            android:id="@+id/btnFaculty"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_rowWeight="1"
-            android:layout_columnWeight="1"
-            android:layout_margin="8dp"
-            android:background="@drawable/custom_button_background"
-            android:text="Faculty"
-            android:textAllCaps="true"
-            android:textColor="@android:color/black"
-            android:textSize="18sp" />
-
-        <!-- Stuff Button -->
-        <Button
-            android:id="@+id/btnStuff"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_rowWeight="1"
-            android:layout_columnWeight="1"
-            android:layout_margin="8dp"
-            android:background="@drawable/custom_button_background"
-            android:text="Stuff"
-            android:textAllCaps="true"
-            android:textColor="@android:color/black"
-            android:textSize="18sp" />
-
-        <!-- Admin Button -->
         <Button
             android:id="@+id/btnNotice"
             android:layout_width="50dp"
@@ -71,7 +43,6 @@
             android:layout_columnWeight="1"
             android:layout_margin="8dp"
             android:background="@drawable/custom_button_background"
-            android:backgroundTint="@color/white"
             android:text="Notice"
             android:textAllCaps="true"
             android:textColor="@android:color/black"
