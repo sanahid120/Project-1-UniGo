@@ -34,7 +34,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-public class Admin_Schedule extends AppCompatActivity implements ScheduleAdapter.OnScheduleActionListener {
+public class Admin_Schedule extends AppCompatActivity {
 
     private RecyclerView recyclerViewSchedule;
     private ScheduleAdapter scheduleAdapter;
@@ -66,7 +66,7 @@ public class Admin_Schedule extends AppCompatActivity implements ScheduleAdapter
         recyclerViewSchedule.setLayoutManager(new LinearLayoutManager(this));
         // Initialize list and adapter
         scheduleList = new ArrayList<>();
-        scheduleAdapter = new ScheduleAdapter(scheduleList, this);
+        scheduleAdapter = new ScheduleAdapter(scheduleList);
         recyclerViewSchedule.setAdapter(scheduleAdapter);
         displayCurrentDateTime();
         databaseReference = FirebaseDatabase.getInstance().getReference();
@@ -96,9 +96,27 @@ public class Admin_Schedule extends AppCompatActivity implements ScheduleAdapter
 
         // Mark completed
         btnMarkCompleted.setOnClickListener(v -> {
-
+            new androidx.appcompat.app.AlertDialog.Builder(Admin_Schedule.this)
+                    .setTitle("Confirm Action")
+                    .setMessage("Are you sure you want to delete All schedules?.")
+                    .setPositiveButton("Yes", (dialog, which) -> {
+                        deleteAllSchedules(globalCatagory);
+                    })
+                    .setNegativeButton("No", (dialog, which) -> dialog.dismiss())
+                    .show();
         });
     }
+
+    private void deleteAllSchedules(String globalCatagory) {
+        DatabaseReference deleteReference = FirebaseDatabase.getInstance().getReference();
+
+        deleteReference.child(globalCatagory).removeValue()
+                .addOnSuccessListener(aVoid -> Toast.makeText(Admin_Schedule.this, "All "+globalCatagory+" schedules deleted", Toast.LENGTH_SHORT).show())
+                .addOnFailureListener(e -> Toast.makeText(Admin_Schedule.this, "Failed to delete "+globalCatagory+" schedules", Toast.LENGTH_SHORT).show());
+        scheduleList.clear();
+        scheduleAdapter.notifyDataSetChanged();
+    }
+
 
     private void fetchSchedules(String category) {
         globalCatagory=category;
@@ -137,18 +155,6 @@ public class Admin_Schedule extends AppCompatActivity implements ScheduleAdapter
         // Display it in a TextView
         TextView scheduleTitle = findViewById(R.id.scheduleTitle);
         scheduleTitle.setText(formattedDateTime);
-    }
-
-    @Override
-    public void onMarkCompleted(ScheduleItem scheduleItem, boolean isChecked) {
-        scheduleItem.setMarkedCompleted(isChecked);
-        databaseReference.child(scheduleItem.getId()).child("Schedule").child(globalCatagory);
-    }
-
-    @Override
-    public void onDeleteSchedule(ScheduleItem scheduleItem) {
-        databaseReference.child(scheduleItem.getId()).removeValue();
-        fetchSchedules(globalCatagory); // Refresh the list after deletion
     }
 
     @Override

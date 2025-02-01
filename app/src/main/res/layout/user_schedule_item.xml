@@ -4,7 +4,8 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:padding="10dp"
-    android:background="@drawable/custom_edittext"
+    android:elevation="10dp"
+    android:background="@drawable/schedule_item_bd"
     >
 
     <!-- Route Text -->
@@ -16,7 +17,7 @@
         android:text="Route"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:textColor="@android:color/black"
+        android:textColor="#037334"
         android:gravity="center" />
 
     <!-- Time Text -->
@@ -27,7 +28,7 @@
         android:layout_weight="1"
         android:text="Time"
         android:textSize="20sp"
-        android:textColor="@android:color/black"
+        android:textColor="#0E3DB3"
         android:gravity="center" />
 
     <!-- Bus Text -->
@@ -38,7 +39,7 @@
         android:layout_weight="1"
         android:text="Bus"
         android:textSize="20sp"
-        android:textColor="@android:color/black"
+        android:textColor="#02991D"
         android:gravity="center" />
 
 </LinearLayout>

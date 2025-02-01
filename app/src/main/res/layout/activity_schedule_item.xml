@@ -3,12 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:gravity="center"
-    android:padding="10dp"
-    android:background="@drawable/custom_edittext"
+    android:padding="1dp"
+    android:background="@drawable/schedule_item_bd"
+    android:elevation="10dp"
+    android:layout_margin="8dp"
     >
 
-    <!-- Route Text -->
     <TextView
         android:id="@+id/tvRoute"
         android:layout_width="0dp"
@@ -16,8 +16,10 @@
         android:layout_weight="1"
         android:text="Route"
         android:textSize="18sp"
-        android:textColor="@android:color/black"
-        android:gravity="center" />
+        android:textStyle="bold"
+        android:textColor="#029208"
+        android:gravity="center"
+        android:padding="8dp" />
 
     <!-- Time Text -->
     <TextView
@@ -27,8 +29,9 @@
         android:layout_weight="1"
         android:text="Time"
         android:textSize="18sp"
-        android:textColor="@android:color/black"
-        android:gravity="center" />
+        android:textColor="#0321A4"
+        android:gravity="center"
+        android:padding="8dp"/>
 
     <!-- Bus Text -->
     <TextView
@@ -38,19 +41,8 @@
         android:layout_weight="1"
         android:text="Bus"
         android:textSize="18sp"
-        android:textColor="@android:color/black"
-        android:gravity="center" />
-
-    <!-- Mark Completed Checkbox -->
-    <ImageButton
-        android:id="@+id/deleteId"
-        android:layout_width="90dp"
-        android:layout_height="wrap_content"
-        android:src="@drawable/delete"
-        android:background="@null"
-        android:layout_gravity="center"
-        android:layout_marginEnd="8dp"
-         />
-
+        android:textColor="#078025"
+        android:gravity="center"
+        android:padding="8dp"/>
 
 </LinearLayout>

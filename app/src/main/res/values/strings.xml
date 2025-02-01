@@ -2,9 +2,9 @@
     <string name="app_name">UniGo</string>
     <string name="unigo">UniGO</string>
     <string name="mytext"><u>Lu Transport</u></string>
-    <string name="mark_completed"><u>Mark Completed</u></string>
+    <string name="Delete"><u>Delete All</u></string>
     <string name="add"><u>Add+</u></string>
-    <string name="bussess">Bussess</string>
+    <string name="bussess">Buses</string>
     <string name="delete">Delete</string>
     <string name="edit">Edit</string>
 

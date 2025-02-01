@@ -13,7 +13,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
     private TextView appNameText;
-    private String appName = "UniGO";
+    private String appName = "UniGo";
     private int index = 0;
     private long delay = 400;
 

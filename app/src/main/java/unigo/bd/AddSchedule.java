@@ -90,10 +90,10 @@ public class AddSchedule extends AppCompatActivity {
     private void loadRoutes() {
         // Manually set the routes
         routesList.clear();
-        routesList.add("Route 1");
-        routesList.add("Route 2");
-        routesList.add("Route 3");
-        routesList.add("Route 4");
+        routesList.add("Route-1");
+        routesList.add("Route-2");
+        routesList.add("Route-3");
+        routesList.add("Route-4");
 
         // Set the adapter for the spinner
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, routesList);

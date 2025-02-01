@@ -3,6 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
+    android:background="@drawable/schedule_item_bd"
+    android:elevation="10dp"
     android:padding="10dp">
 <TextView
     android:layout_width="wrap_content"
@@ -19,5 +21,6 @@
         android:text="bus number"
         android:textAppearance="@color/black"
         android:textStyle="italic"
+        android:textColor="#0C5DE0"
         android:textSize="20sp" />
 </LinearLayout>

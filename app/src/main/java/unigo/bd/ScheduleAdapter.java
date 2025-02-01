@@ -25,16 +25,10 @@ import java.util.List;
 public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ScheduleViewHolder> {
 
     private final List<ScheduleItem> scheduleList;
-    private final OnScheduleActionListener actionListener;
 
-    public interface OnScheduleActionListener {
-        void onMarkCompleted(ScheduleItem scheduleItem, boolean isChecked);
-        void onDeleteSchedule(ScheduleItem scheduleItem);
-    }
 
-    public ScheduleAdapter(List<ScheduleItem> scheduleList, OnScheduleActionListener actionListener) {
+    public ScheduleAdapter(List<ScheduleItem> scheduleList) {
         this.scheduleList = scheduleList;
-        this.actionListener = actionListener;
     }
 
     @NonNull
@@ -119,13 +113,11 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Schedu
 
     static class ScheduleViewHolder extends RecyclerView.ViewHolder {
         TextView tvRoute, tvTime, tvBus;
-        ImageButton delete;
         public ScheduleViewHolder(@NonNull View itemView) {
             super(itemView);
             tvRoute = itemView.findViewById(R.id.tvRoute);
             tvTime = itemView.findViewById(R.id.tvTime);
             tvBus = itemView.findViewById(R.id.tvBus);
-            delete = itemView.findViewById(R.id.deleteId);
         }
     }
 }

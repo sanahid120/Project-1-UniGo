@@ -2,6 +2,7 @@ package unigo.bd;
 
 import static unigo.bd.R.id.login_menu_user;
 import static unigo.bd.R.id.login_userSchedule;
+import static unigo.bd.R.id.logout_userSchedule;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -137,10 +138,10 @@ SessionManager sessionManager= new SessionManager(this);
             Toast.makeText(this, "Navigate to Login...", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(User_Schedule.this,LoginActivity.class));
             return true;
-        }else if(item.getItemId()== login_userSchedule){
+        }else if(item.getItemId()== logout_userSchedule){
             Toast.makeText(this, "Logging Out...", Toast.LENGTH_SHORT).show();
             new SessionManager(this).logout();
-            startActivity(new Intent(User_Schedule.this,SignupActivity.class));
+            startActivity(new Intent(User_Schedule.this,UserHomepage.class));
             return true;
         }else if(item.getItemId()== R.id.requestBus_id_userSchedule){
             Toast.makeText(this, "Not Functional Yet...", Toast.LENGTH_SHORT).show();
