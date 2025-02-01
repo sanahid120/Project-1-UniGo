@@ -1,9 +1,8 @@
 package unigo.bd;
 
-import static unigo.bd.R.id.login_menu;
-import static unigo.bd.R.id.logout;
-import static unigo.bd.R.id.menu_logout;
-
+import static unigo.bd.R.id.id_addBus_Schedule;
+import static unigo.bd.R.id.id_logout_Schedule;
+import static unigo.bd.R.id.id_noticeBoard_Schedule;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -19,6 +18,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -41,6 +41,7 @@ public class Admin_Schedule extends AppCompatActivity implements ScheduleAdapter
     private List<ScheduleItem> scheduleList;
     private DatabaseReference databaseReference;
     public String globalCatagory;
+    Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +52,11 @@ public class Admin_Schedule extends AppCompatActivity implements ScheduleAdapter
         Button btnMarkCompleted = findViewById(R.id.markCompletedButton);
         ImageButton btnBack = findViewById(R.id.btnBack);
         Spinner spinnerCategory = findViewById(R.id.spinnerCategory);
+        toolbar =findViewById(R.id.topBar);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {   // remove the text from topBar of xml
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+        }
 
         // Back button functionality
         btnBack.setOnClickListener(v -> finish());
@@ -153,10 +159,22 @@ public class Admin_Schedule extends AppCompatActivity implements ScheduleAdapter
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId()== menu_logout){
+        if(item.getItemId()== id_logout_Schedule){
             Toast.makeText(this, "Logging Out...", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(Admin_Schedule.this,SignupActivity.class));
+            startActivity(new Intent(Admin_Schedule.this,LoginActivity.class));
             return true;
+        } else if (item.getItemId()== id_noticeBoard_Schedule){
+            Toast.makeText(this, "Navigating to NoticeBoard...", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(Admin_Schedule.this,NoticeBoard.class));
+            return true;
+        }else if (item.getItemId()== id_addBus_Schedule){
+            Toast.makeText(this, "Navigating to AddBus...", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(Admin_Schedule.this,AddBus.class));
+            return true;
+        }
+        else{
+            startActivity(new Intent(Admin_Schedule.this,Admin_Homepage.class));
+
         }
         return super.onOptionsItemSelected(item);
     }

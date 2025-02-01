@@ -2,7 +2,22 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/menu_logout"
+        android:id="@+id/id_logout_Schedule"
         android:title="Logout"
         app:showAsAction="never"/>
+    <item
+        android:id="@+id/id_addBus_Schedule"
+        android:title="Add Bus"
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/id_noticeBoard_Schedule"
+        android:title="Notice Board"
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/id_Home_fromSchedule"
+        android:title="Home"
+        app:showAsAction="never"
+        />
 </menu>

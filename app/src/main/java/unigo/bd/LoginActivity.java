@@ -10,19 +10,18 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText email, password;
@@ -30,7 +29,7 @@ public class LoginActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private TextView register;
     private FirebaseAuth mAuth;
-    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference userRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,73 +42,88 @@ public class LoginActivity extends AppCompatActivity {
         login = findViewById(R.id.btn_loginPage_signin);
         register = findViewById(R.id.tv_loginPage_register);
         progressBar = findViewById(R.id.login_progressbar);
-        // Initialize Firebase Authentication instance
-        mAuth = FirebaseAuth.getInstance();
 
-        FirebaseDatabase firebaseDatabase =FirebaseDatabase.getInstance();
-        DatabaseReference userRef = firebaseDatabase.getReference("AdminInfo");
-        userRef.setValue(new AdminInfo("Admin@gmail.com","AdminPassword"));
+        // Initialize Firebase Authentication
+        mAuth = FirebaseAuth.getInstance();
+        // Initialize Firebase Database Reference
+        userRef = FirebaseDatabase.getInstance().getReference("AdminInfo");
 
         // Login button click listener
-        login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String mail = email.getText().toString().trim();
-                String pass = password.getText().toString().trim();
+        login.setOnClickListener(v -> {
+            String mail = email.getText().toString().trim();
+            String pass = password.getText().toString().trim();
 
-                // Validate email and password fields
-                if (mail.isEmpty()) {
-                    email.setError("Email field is empty");
-                    email.requestFocus();
-                    return;
-                }
-                if (pass.isEmpty()) {
-                    password.setError("Password field is empty");
-                    password.requestFocus();
-                    return;
-                }
-                progressBar.setVisibility(View.VISIBLE);
-                // Attempt to sign in the user
-                mAuth.signInWithEmailAndPassword(mail, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-
-                        if (task.isSuccessful()) {
-                            // Check if the user's email is verified
-                            if(isAdmin(mail,pass)){
-                                progressBar.setVisibility(View.GONE);
-                                Toast.makeText(LoginActivity.this, "Admin LogIn...", Toast.LENGTH_SHORT).show();
-                                finish();
-                            }
-                            if (mAuth.getCurrentUser().isEmailVerified()) {
-                                // Navigate to the next activity if verified
-                                progressBar.setVisibility(View.GONE);
-                                Toast.makeText(LoginActivity.this, "Login Succesfull!!", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(LoginActivity.this, UserHomepage.class));
-                                finish();
-                            } else {
-                                progressBar.setVisibility(View.GONE);
-                                Toast.makeText(LoginActivity.this, "Please verify your email first!", Toast.LENGTH_SHORT).show();
-                            }
-                        } else {
-                            progressBar.setVisibility(View.GONE);
-                            Toast.makeText(LoginActivity.this, "Login failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
+            // Validate email and password fields
+            if (mail.isEmpty()) {
+                email.setError("Email field is empty");
+                email.requestFocus();
+                return;
             }
+            if (pass.isEmpty()) {
+                password.setError("Password field is empty");
+                password.requestFocus();
+                return;
+            }
+            progressBar.setVisibility(View.VISIBLE);
+
+            // Check if user is an admin
+            checkIfAdmin(mail, pass);
         });
 
-        register.setOnClickListener(new View.OnClickListener() {
+        register.setOnClickListener(v -> startActivity(new Intent(LoginActivity.this, SignupActivity.class)));
+    }
+
+    /**
+     * Checks if the entered credentials match admin credentials stored in Firebase.
+     */
+    private void checkIfAdmin(String mail, String pass) {
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this, SignupActivity.class));
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    String adminEmail = snapshot.child("email").getValue(String.class);
+                    String adminPassword = snapshot.child("password").getValue(String.class);
+
+                    if (adminEmail != null && adminPassword != null && adminEmail.equals(mail) && adminPassword.equals(pass)) {
+                        progressBar.setVisibility(View.GONE);
+                        Toast.makeText(LoginActivity.this, "Admin Login Successful!", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(LoginActivity.this, Admin_Homepage.class));
+                        finish();
+                    } else {
+                        // If not admin, proceed with normal user authentication
+                        loginUser(mail, pass);
+                    }
+                } else {
+                    // If AdminInfo node is missing, proceed with normal authentication
+                    loginUser(mail, pass);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                progressBar.setVisibility(View.GONE);
+                Toast.makeText(LoginActivity.this, "Error checking admin credentials", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    private boolean isAdmin(String mail, String pass) {
-
-        return true;
+    /**
+     * Logs in a regular user with Firebase Authentication.
+     */
+    private void loginUser(String mail, String pass) {
+        mAuth.signInWithEmailAndPassword(mail, pass).addOnCompleteListener(task -> {
+            progressBar.setVisibility(View.GONE);
+            if (task.isSuccessful()) {
+                if (mAuth.getCurrentUser() != null && mAuth.getCurrentUser().isEmailVerified()) {
+                    Toast.makeText(LoginActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(LoginActivity.this, UserHomepage.class));
+                    finish();
+                } else {
+                    Toast.makeText(LoginActivity.this, "Please verify your email first!", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(LoginActivity.this, "Login failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

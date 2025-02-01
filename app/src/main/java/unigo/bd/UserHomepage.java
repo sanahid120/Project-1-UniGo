@@ -55,7 +55,7 @@ private Button stuff,student,faculty,notice;
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId()== login_menu){
             Toast.makeText(this, "Login/Register Button Selected", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(UserHomepage.this,SignupActivity.class));
+            startActivity(new Intent(UserHomepage.this,LoginActivity.class));
             return true;
         }
         return super.onOptionsItemSelected(item);
