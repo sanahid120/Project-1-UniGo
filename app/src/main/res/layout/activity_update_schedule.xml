@@ -5,7 +5,8 @@
     android:id="@+id/drawerLayout"
     android:background="@drawable/image"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
 
     <!-- Main Content -->
     <LinearLayout
@@ -18,7 +19,8 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="45dp"
+            android:background="#40C79E"
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
 
             <ImageButton

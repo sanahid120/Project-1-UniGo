@@ -4,7 +4,8 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:padding="10dp"
-    android:elevation="10dp"
+    android:elevation="4dp"
+    android:layout_margin="4dp"
     android:background="@drawable/schedule_item_bd"
     >
 
@@ -16,7 +17,6 @@
         android:layout_weight="1"
         android:text="Route"
         android:textSize="20sp"
-        android:textStyle="bold"
         android:textColor="#037334"
         android:gravity="center" />
 

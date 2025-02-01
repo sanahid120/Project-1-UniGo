@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,6 +42,7 @@ public class Admin_Schedule extends AppCompatActivity {
     private List<ScheduleItem> scheduleList;
     private DatabaseReference databaseReference;
     public String globalCatagory;
+    ProgressBar progressBar;
     Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +55,7 @@ public class Admin_Schedule extends AppCompatActivity {
         ImageButton btnBack = findViewById(R.id.btnBack);
         Spinner spinnerCategory = findViewById(R.id.spinnerCategory);
         toolbar =findViewById(R.id.topBar);
+        progressBar=findViewById(R.id.adminSchedule_progressBar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {   // remove the text from topBar of xml
             getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -70,7 +73,6 @@ public class Admin_Schedule extends AppCompatActivity {
         recyclerViewSchedule.setAdapter(scheduleAdapter);
         displayCurrentDateTime();
         databaseReference = FirebaseDatabase.getInstance().getReference();
-
 
         spinnerCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -100,6 +102,7 @@ public class Admin_Schedule extends AppCompatActivity {
                     .setTitle("Confirm Action")
                     .setMessage("Are you sure you want to delete All schedules?.")
                     .setPositiveButton("Yes", (dialog, which) -> {
+                        progressBar.setVisibility(View.VISIBLE);
                         deleteAllSchedules(globalCatagory);
                     })
                     .setNegativeButton("No", (dialog, which) -> dialog.dismiss())
@@ -113,17 +116,28 @@ public class Admin_Schedule extends AppCompatActivity {
         deleteReference.child(globalCatagory).removeValue()
                 .addOnSuccessListener(aVoid -> Toast.makeText(Admin_Schedule.this, "All "+globalCatagory+" schedules deleted", Toast.LENGTH_SHORT).show())
                 .addOnFailureListener(e -> Toast.makeText(Admin_Schedule.this, "Failed to delete "+globalCatagory+" schedules", Toast.LENGTH_SHORT).show());
+        progressBar.setVisibility(View.GONE);
         scheduleList.clear();
         scheduleAdapter.notifyDataSetChanged();
     }
 
 
     private void fetchSchedules(String category) {
-        globalCatagory=category;
-        databaseReference.child(category).addValueEventListener(new ValueEventListener() {
+        globalCatagory = category;
+        progressBar.setVisibility(View.VISIBLE);
+
+        databaseReference.child(category).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                scheduleList.clear();
+                scheduleList.clear(); // Clear list before adding new data
+
+                if (!snapshot.exists()) { // No schedules found
+                    progressBar.setVisibility(View.GONE);
+                    Toast.makeText(Admin_Schedule.this, "No Schedule Found!", Toast.LENGTH_SHORT).show();
+                    scheduleAdapter.notifyDataSetChanged();
+                    return;
+                }
+
                 for (DataSnapshot data : snapshot.getChildren()) {
                     Schedule schedule = data.getValue(Schedule.class);
                     if (schedule != null) {
@@ -131,20 +145,23 @@ public class Admin_Schedule extends AppCompatActivity {
                                 schedule.route,
                                 schedule.time,
                                 schedule.busNumber
-                                );
+                        );
                         scheduleItem.setId(data.getKey());
                         scheduleList.add(scheduleItem);
                     }
                 }
+                progressBar.setVisibility(View.GONE);
                 scheduleAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                // Handle error
+                progressBar.setVisibility(View.GONE);
+                Toast.makeText(Admin_Schedule.this, "Database Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
+
 
     private void displayCurrentDateTime() {
         // Get current date and time
@@ -181,7 +198,6 @@ public class Admin_Schedule extends AppCompatActivity {
         }
         else{
             startActivity(new Intent(Admin_Schedule.this,Admin_Homepage.class));
-
         }
         return super.onOptionsItemSelected(item);
     }

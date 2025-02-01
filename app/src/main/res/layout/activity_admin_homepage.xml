@@ -7,9 +7,18 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/topBar"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="45dp"
+        android:background="#40C79E"
         android:elevation="40dp"
         >
+        <TextView
+            android:id="@+id/toolbarTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Admin Homepage"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:layout_gravity="center" />
     </androidx.appcompat.widget.Toolbar>
     <GridLayout
         android:layout_width="match_parent"

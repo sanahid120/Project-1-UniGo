@@ -4,7 +4,8 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:background="@drawable/schedule_item_bd"
-    android:elevation="10dp"
+    android:elevation="2dp"
+    android:layout_marginBottom="2dp"
     android:padding="10dp">
 <TextView
     android:layout_width="wrap_content"

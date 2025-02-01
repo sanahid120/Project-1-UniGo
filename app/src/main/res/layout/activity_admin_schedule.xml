@@ -9,8 +9,8 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/topBar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:elevation="4dp"
+        android:layout_height="45dp"
+        android:background="#40C79E"
         android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
 
         <!-- Back Button -->
@@ -136,7 +136,14 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:elevation="4dp"
         android:paddingBottom="16dp" />
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/adminSchedule_progressBar"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        />
 </LinearLayout>

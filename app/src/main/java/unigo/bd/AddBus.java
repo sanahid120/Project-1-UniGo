@@ -6,8 +6,10 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -19,6 +21,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -32,8 +35,9 @@ public class AddBus extends AppCompatActivity {
 
     private RecyclerView busListRecyclerView;
     private BusAdapter busAdapter;
-    private ImageButton addButton;
+    private FloatingActionButton addButton;
     private ImageButton backButton;
+    ProgressBar progressBar;
 
     private DatabaseReference databaseReference;
     private ArrayList<Bus> busList;
@@ -47,6 +51,7 @@ public class AddBus extends AppCompatActivity {
         busListRecyclerView = findViewById(R.id.bus_list);
         addButton = findViewById(R.id.addButton);
         backButton = findViewById(R.id.back_button);
+        progressBar = findViewById(R.id.addBus_progressBar);
 
         // Set up Toolbar
         setSupportActionBar(toolbar);
@@ -54,7 +59,7 @@ public class AddBus extends AppCompatActivity {
 
         // Initialize Firebase Realtime Database reference
         databaseReference = FirebaseDatabase.getInstance().getReference("buses");
-        busList = new ArrayList<Bus>();
+        busList = new ArrayList<>();
 
         // Back button functionality
         backButton.setOnClickListener(v -> finish());
@@ -71,14 +76,10 @@ public class AddBus extends AppCompatActivity {
         loadBusData();
     }
 
-    private void showUpdateDeleteDialog(String s) {
-    }
-
 
     private void showAddBusDialog() {
         final EditText input = new EditText(this);
         input.setInputType(InputType.TYPE_CLASS_TEXT);
-
         new AlertDialog.Builder(this)
                 .setTitle("Add Bus Number")
                 .setView(input)
@@ -86,8 +87,10 @@ public class AddBus extends AppCompatActivity {
                     String busNumber = input.getText().toString().trim();
                     if (!busNumber.isEmpty()) {
                         addBusToFirebase(busNumber);
+                        progressBar.setVisibility(View.VISIBLE);
                     } else {
                         Toast.makeText(this, "Bus Number cannot be empty!", Toast.LENGTH_SHORT).show();
+
                     }
                 })
                 .setNegativeButton("Cancel", null) // `null` automatically cancels the dialog
@@ -102,24 +105,36 @@ public class AddBus extends AppCompatActivity {
             newBus.setId(busId); // Set the generated ID
             databaseReference.child(busId).setValue(newBus).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
+                    progressBar.setVisibility(View.GONE);
                     Toast.makeText(this, "Bus Added: " + busNumber, Toast.LENGTH_SHORT).show();
                 } else {
+                    progressBar.setVisibility(View.GONE);
                     Toast.makeText(this, "Failed to add bus!", Toast.LENGTH_SHORT).show();
                 }
             });
         }
+
     }
 
 
     private void loadBusData() {
+        progressBar.setVisibility(View.VISIBLE);
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+
                 busList.clear();
+                if (!snapshot.exists()) { // No schedules found
+                    progressBar.setVisibility(View.GONE);
+                    Toast.makeText(AddBus.this, "No Schedule Found!", Toast.LENGTH_SHORT).show();
+                    busAdapter.notifyDataSetChanged();
+                    return;
+                }
                 for (DataSnapshot busSnapshot : snapshot.getChildren()) {
                     Bus bus = busSnapshot.getValue(Bus.class); // Map data to Bus class
                     if (bus != null) {
-                        busList.add(bus); // Add the Bus object to the list
+                        busList.add(bus);
+                        progressBar.setVisibility(View.GONE);
                     }
                 }
                 busAdapter.notifyDataSetChanged(); // Notify adapter about data changes

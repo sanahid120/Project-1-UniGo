@@ -6,7 +6,7 @@
     android:padding="1dp"
     android:background="@drawable/schedule_item_bd"
     android:elevation="10dp"
-    android:layout_margin="8dp"
+    android:layout_margin="4dp"
     >
 
     <TextView

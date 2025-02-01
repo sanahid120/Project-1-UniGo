@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,6 +42,7 @@ public class User_Schedule extends AppCompatActivity {
     private List<ScheduleItem> scheduleList;
     private DatabaseReference databaseReference;
     private String globalCategory;
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +51,7 @@ public class User_Schedule extends AppCompatActivity {
         ImageButton btnBack = findViewById(R.id.back_button);
         Spinner spinnerCategory = findViewById(R.id.spinnerCategory);
         TextView scheduleTitle = findViewById(R.id.scheduleTitle);
+        progressBar = findViewById(R.id.progressBar_UserSchedule);
         Toolbar toolbar = findViewById(R.id.topBar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {   // remove the text from topBar of xml
@@ -87,23 +90,33 @@ public class User_Schedule extends AppCompatActivity {
     }
 
     private void fetchSchedules(String category) {
+        progressBar.setVisibility(View.VISIBLE);
         databaseReference.child(category).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 scheduleList.clear();
+                if (!snapshot.exists()) { // No schedules found
+                    progressBar.setVisibility(View.GONE);
+                    Toast.makeText(User_Schedule.this, "No Schedule Found!", Toast.LENGTH_SHORT).show();
+                    scheduleAdapter.notifyDataSetChanged();
+                    return;
+                }
                 for (DataSnapshot data : snapshot.getChildren()) {
                     Schedule schedule = data.getValue(Schedule.class);
                     if (schedule != null) {
+                        progressBar.setVisibility(View.GONE);
                         scheduleList.add(new ScheduleItem(schedule.route, schedule.time, schedule.busNumber, data.getKey()));
                     }
                 }
+                progressBar.setVisibility(View.GONE);
                 scheduleAdapter.notifyDataSetChanged();
             }
 
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                // Log or handle errors
-            }
+                progressBar.setVisibility(View.GONE);
+                Toast.makeText(User_Schedule.this, "Database Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();            }
         });
     }
 
