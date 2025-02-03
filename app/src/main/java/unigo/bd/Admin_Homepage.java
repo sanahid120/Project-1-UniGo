@@ -8,12 +8,8 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 public class Admin_Homepage extends AppCompatActivity {
     private Button stuff,schedule,addBus,notice;
@@ -50,7 +46,7 @@ public class Admin_Homepage extends AppCompatActivity {
         if(item.getItemId()== R.id.id_logout){
             Toast.makeText(this, "logging Out...", Toast.LENGTH_SHORT).show();
             new SessionManager(Admin_Homepage.this).logout();
-            startActivity(new Intent(Admin_Homepage.this,LoginActivity.class));
+            startActivity(new Intent(Admin_Homepage.this,UserHomepage.class));
             return true;
         } else if (item.getItemId()==R.id.id_userHomepage) {
             Toast.makeText(this, "Navigating to User...", Toast.LENGTH_SHORT).show();
@@ -62,7 +58,7 @@ public class Admin_Homepage extends AppCompatActivity {
             return true;
         }else if (item.getItemId()==R.id.id_noticeBoard) {
             Toast.makeText(this, "Navigating to NoticeBoard...", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(Admin_Homepage.this,NoticeBoard.class));
+            startActivity(new Intent(Admin_Homepage.this, AdminNoticeBoard.class));
             return true;
         }
         return super.onOptionsItemSelected(item);

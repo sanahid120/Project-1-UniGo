@@ -161,7 +161,7 @@ public class AddBus extends AppCompatActivity {
 
     private boolean handleMenuSelection(int itemId) {
         if (itemId == R.id.home_from_addBus) {
-            startActivity(new Intent(AddBus.this,UserHomepage.class));
+            startActivity(new Intent(AddBus.this,Admin_Homepage.class));
         }
         else if (itemId == R.id.logout) {
             Toast.makeText(this, "Logging out...", Toast.LENGTH_SHORT).show();

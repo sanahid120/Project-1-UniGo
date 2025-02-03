@@ -1,6 +1,5 @@
 package unigo.bd;
 
-import static unigo.bd.R.id.login_menu_user;
 import static unigo.bd.R.id.login_userSchedule;
 import static unigo.bd.R.id.logout_userSchedule;
 
@@ -161,7 +160,7 @@ SessionManager sessionManager= new SessionManager(this);
             return true;
         }else if(item.getItemId()== R.id.noticeBoardId_userSchedule){
             Toast.makeText(this, "Navigating to NoticeBoard...", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(User_Schedule.this,NoticeBoard.class));
+            startActivity(new Intent(User_Schedule.this, AddNotice.class));
             return true;
         }
         else {

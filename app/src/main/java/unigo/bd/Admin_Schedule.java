@@ -185,11 +185,11 @@ public class Admin_Schedule extends AppCompatActivity {
         if(item.getItemId()== id_logout_Schedule){
             Toast.makeText(this, "Logging Out...", Toast.LENGTH_SHORT).show();
             new SessionManager(this).logout();
-            startActivity(new Intent(Admin_Schedule.this,LoginActivity.class));
+            startActivity(new Intent(Admin_Schedule.this,UserHomepage.class));
             return true;
         } else if (item.getItemId()== id_noticeBoard_Schedule){
             Toast.makeText(this, "Navigating to NoticeBoard...", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(Admin_Schedule.this,NoticeBoard.class));
+            startActivity(new Intent(Admin_Schedule.this, AdminNoticeBoard.class));
             return true;
         }else if (item.getItemId()== id_addBus_Schedule){
             Toast.makeText(this, "Navigating to AddBus...", Toast.LENGTH_SHORT).show();

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginBottom="3dp"
+    android:padding="5dp"
+    android:elevation="10dp"
+    android:background="@drawable/schedule_item_bd">
+
+    <TextView
+        android:id="@+id/tv_NoticeTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Title"
+        android:elevation="10dp"
+        android:textColor="#2501C7"
+        android:padding="10dp"
+        android:textSize="20dp"
+        android:layout_marginHorizontal="5dp"
+        android:layout_marginTop="15dp"
+        />
+
+    <TextView
+        android:id="@+id/tv_NoticeDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:text="Description"
+        android:padding="10dp"
+        android:layout_marginTop="10dp"
+        android:textSize="18dp"
+        android:layout_marginHorizontal="5dp"/>
+
+    <ImageView
+        android:id="@+id/imageView_notice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:src="@drawable/baseline_upload_24"
+        android:background="@drawable/custom_button_background"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        />
+
+    
+
+</LinearLayout>

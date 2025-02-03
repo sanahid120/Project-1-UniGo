@@ -46,7 +46,7 @@ private Button schedule,notice;
         });
         notice.setOnClickListener(v->{
             Toast.makeText(this, "Navigating to NoticeBoard...", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(UserHomepage.this, NoticeBoard.class));
+            startActivity(new Intent(UserHomepage.this, UserNoticeBoard.class));
 
         });
     }

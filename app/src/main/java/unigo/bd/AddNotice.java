@@ -12,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -23,12 +22,11 @@ import com.cloudinary.android.callback.UploadCallback;
 import com.cloudinary.android.policy.TimeWindow;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class NoticeBoard extends AppCompatActivity {
+public class AddNotice extends AppCompatActivity {
     private ImageView imageView;
     private static final int IMAGE_REQ = 1;
     private EditText titleEditText, descriptionEditText;
@@ -41,7 +39,7 @@ public class NoticeBoard extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_notice_board);
+        setContentView(R.layout.activity_add_notice);
 
         imageView = findViewById(R.id.imageView_notice);
         titleEditText = findViewById(R.id.et_NoticeTitle);
@@ -55,15 +53,15 @@ public class NoticeBoard extends AppCompatActivity {
 
         // Select Image
         imageView.setOnClickListener(v -> {
-            if (ContextCompat.checkSelfPermission(NoticeBoard.this, Manifest.permission.READ_EXTERNAL_STORAGE)
+            if (ContextCompat.checkSelfPermission(AddNotice.this, Manifest.permission.READ_EXTERNAL_STORAGE)
                     == PackageManager.PERMISSION_GRANTED ||
-                    ContextCompat.checkSelfPermission(NoticeBoard.this, Manifest.permission.READ_MEDIA_IMAGES)
+                    ContextCompat.checkSelfPermission(AddNotice.this, Manifest.permission.READ_MEDIA_IMAGES)
                             == PackageManager.PERMISSION_GRANTED) {
 
                 pickImage();
 
             } else {
-                ActivityCompat.requestPermissions(NoticeBoard.this, new String[]{
+                ActivityCompat.requestPermissions(AddNotice.this, new String[]{
                         Manifest.permission.READ_EXTERNAL_STORAGE,
                         Manifest.permission.READ_MEDIA_IMAGES}, IMAGE_REQ);
             }
@@ -135,7 +133,7 @@ public class NoticeBoard extends AppCompatActivity {
                     @Override
                     public void onError(String requestId, com.cloudinary.android.callback.ErrorInfo error) {
                         progressBar.setVisibility(View.GONE);
-                        Toast.makeText(NoticeBoard.this, "Image Upload Failed: " + error.getDescription(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddNotice.this, "Image Upload Failed: " + error.getDescription(), Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -154,11 +152,11 @@ public class NoticeBoard extends AppCompatActivity {
                     imagePath = null;
                     imageView.setImageResource(R.drawable.baseline_upload_24);
                     progressBar.setVisibility(View.GONE);
-                    Toast.makeText(NoticeBoard.this, "Notice Added Successfully!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddNotice.this, "Notice Added Successfully!", Toast.LENGTH_SHORT).show();
                 })
                 .addOnFailureListener(e -> {
                     progressBar.setVisibility(View.GONE);
-                    Toast.makeText(NoticeBoard.this, "Failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddNotice.this, "Failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 });
     }
 
