@@ -40,8 +40,12 @@ dependencies {
     implementation(libs.constraintlayout)
     implementation(libs.firebase.auth)
     implementation(libs.firebase.database)
+    implementation(libs.play.services.cast.tv)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+    // Use Version Catalog for Picasso and Cloudinary
+    implementation(libs.picasso)
+    implementation(libs.cloudinary)
 
 }

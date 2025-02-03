@@ -1,68 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".NoticeBoard">
 
-    <TextView
-        android:id="@+id/textViewTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Admin Notice Upload"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        android:textColor="@color/white"
-        android:background="#613AA8"
-        android:layout_marginTop="20dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/topBar"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="#40C79E"
+        android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
+        tools:ignore="MissingConstraints">
+
+        <!-- Back Button -->
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_arrow_back"
+            android:background="@null"
+            android:layout_gravity="start" />
+
+        <TextView
+            android:id="@+id/toolbarTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Admin NoticeBoard"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            android:layout_gravity="center" />
+    </androidx.appcompat.widget.Toolbar>
+
+
 
     <EditText
-        android:id="@+id/editTextNotice"
-        android:layout_width="0dp"
+        android:id="@+id/et_NoticeTitle"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter notice text here"
+        android:hint="Title"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
         android:padding="10dp"
-        android:background="@android:drawable/editbox_background"
-        app:layout_constraintTop_toBottomOf="@id/textViewTitle"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="20dp"
-        android:layout_marginHorizontal="20dp"/>
+        android:background="@drawable/custom_edittext"
+        app:layout_constraintTop_toBottomOf="@id/topBar"
+        android:layout_marginHorizontal="5dp"
+        android:layout_below="@id/topBar"
+        android:layout_marginTop="15dp"
+        />
+    <EditText
+        android:id="@+id/et_noticeContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        android:hint="Description"
+        android:padding="10dp"
+        android:background="@drawable/custom_edittext"
+        android:layout_below="@+id/et_NoticeTitle"
+        android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="5dp"/>
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imageView_notice"
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:scaleType="centerCrop"
-        android:background="@android:color/darker_gray"
+        android:src="@drawable/baseline_upload_24"
+        android:background="@drawable/custom_button_background"
         android:layout_marginTop="20dp"
-        app:layout_constraintTop_toBottomOf="@id/editTextNotice"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <Button
-        android:id="@+id/btnChoose"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Choose Image"
-        android:layout_marginTop="10dp"
-        app:layout_constraintTop_toBottomOf="@id/imageView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        android:layout_centerInParent="true"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_below="@+id/et_noticeContent"
+        />
 
     <Button
         android:id="@+id/btnUpload"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Upload Notice"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="#0B711D"
+        android:layout_centerInParent="true"
+        android:layout_below="@+id/imageView_notice"
+        />
+    <ProgressBar
+        android:id="@+id/progressBar_AdminNoticeBoard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_below="@+id/btnUpload"
         android:layout_marginTop="20dp"
-        app:layout_constraintTop_toBottomOf="@id/btnChoose"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        android:visibility="invisible"
+        />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>
