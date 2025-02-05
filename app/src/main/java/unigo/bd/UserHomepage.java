@@ -87,6 +87,8 @@ private Button schedule,notice;
         }
         else if (item.getItemId()==R.id.requestBus_user_menu);{
             Toast.makeText(this, "You Clicked Request Bus...", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(this, RequestBus.class));
+
         }
         return super.onOptionsItemSelected(item);
     }

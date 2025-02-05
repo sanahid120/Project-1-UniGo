@@ -20,6 +20,12 @@
         android:theme="@style/Theme.UniGo"
         tools:targetApi="31">
         <activity
+            android:name=".ViewRequestBus"
+            android:exported="false" />
+        <activity
+            android:name=".ViewBusRequest"
+            android:exported="false" />
+        <activity
             android:name=".NoticeDetailActivity"
             android:exported="false" />
         <activity

@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <item
-        android:id="@+id/id_logout_Schedule"
-        android:title="Logout"
-        app:showAsAction="never"/>
+        android:id="@+id/id_Home_fromSchedule"
+        android:title="Home"
+        app:showAsAction="never"
+        />
+
     <item
         android:id="@+id/id_addBus_Schedule"
         android:title="Add Bus"
@@ -16,8 +19,12 @@
         app:showAsAction="never"
         />
     <item
-        android:id="@+id/id_Home_fromSchedule"
-        android:title="Home"
+        android:id="@+id/id_ViewRequest_AdminSchedule"
+        android:title="View BusRequests"
         app:showAsAction="never"
         />
+    <item
+        android:id="@+id/id_logout_Schedule"
+        android:title="Logout"
+        app:showAsAction="never"/>
 </menu>

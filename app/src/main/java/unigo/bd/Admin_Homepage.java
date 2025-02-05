@@ -54,7 +54,7 @@ public class Admin_Homepage extends AppCompatActivity {
             return true;
         }else if (item.getItemId()==R.id.id_addBus) {
             Toast.makeText(this, "Navigating to AddBus...", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(Admin_Homepage.this,AddBus.class));
+            startActivity(new Intent(Admin_Homepage.this,RequestBus.class));
             return true;
         }else if (item.getItemId()==R.id.id_noticeBoard) {
             Toast.makeText(this, "Navigating to NoticeBoard...", Toast.LENGTH_SHORT).show();

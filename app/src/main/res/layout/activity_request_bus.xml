@@ -1,21 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#BFE5F6"
-    android:padding="25dp">
+    android:orientation="vertical"
+    android:padding="2dp">
 
-    <!-- Back Button -->
-    <ImageButton
-        android:id="@+id/btnBack"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:background="@null"
-        android:src="@drawable/ic_arrow_back"
-        android:contentDescription="Back Button"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/topBar"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="#40C79E"
+        android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+
+        <!-- Back Button -->
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_arrow_back"
+            android:background="@null"
+            android:layout_gravity="start" />
+
+        <TextView
+            android:id="@+id/toolbarTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Request Bus"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            android:layout_gravity="center" />
+    </androidx.appcompat.widget.Toolbar>
+
 
     <!-- Time Selection -->
     <TextView
@@ -25,30 +42,16 @@
         android:text="Select Time:"
         android:textSize="25dp"
         android:textStyle="bold"
-        android:layout_toEndOf="@id/btnBack"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="5dp"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="8dp" />
+        android:layout_marginTop="5dp" />
 
-    <RadioGroup
-        android:id="@+id/rgTime"
+    <Spinner
+        android:id="@+id/spinnerTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tvTimeSelection"
-        android:layout_marginTop="20dp">
-
-        <RadioButton
-            android:id="@+id/rbTime1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="1:30 PM" />
-
-        <RadioButton
-            android:id="@+id/rbTime2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="3:00 PM" />
-    </RadioGroup>
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="8dp" />
 
     <!-- Route Selection -->
     <TextView
@@ -56,25 +59,38 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Select Route:"
+        android:layout_marginStart="5dp"
         android:textSize="25sp"
-        android:layout_below="@id/rgTime"
+        android:textStyle="bold"
         android:layout_marginTop="16dp" />
 
     <Spinner
         android:id="@+id/spinnerRoutes"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tvRouteSelection"
+        android:layout_marginStart="15dp"
         android:layout_marginTop="8dp" />
 
     <!-- Vote Button -->
     <Button
-        android:id="@+id/btnVote"
+        android:id="@+id/btnUploadRequest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="SEND"
-        android:layout_below="@id/spinnerRoutes"
+        android:text="Upload Request"
+        android:backgroundTint="@color/buttonColor"
         android:layout_marginTop="16dp"
-        android:layout_centerHorizontal="true" />
+        android:layout_gravity="center"
+         />
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:id="@+id/progressBar"
+        android:visibility="gone"/>
 
-</RelativeLayout>
+
+
+
+
+</LinearLayout>

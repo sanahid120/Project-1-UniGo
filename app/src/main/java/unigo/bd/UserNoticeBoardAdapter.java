@@ -47,7 +47,6 @@ public class UserNoticeBoardAdapter extends RecyclerView.Adapter<UserNoticeBoard
             intent.putExtra("imageUrl", notice.getImageUrl());
             context.startActivity(intent);
         });
-
     }
 
 

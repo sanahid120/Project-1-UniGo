@@ -1,5 +1,6 @@
 package unigo.bd;
 
+import static unigo.bd.R.id.id_ViewRequest_AdminSchedule;
 import static unigo.bd.R.id.id_addBus_Schedule;
 import static unigo.bd.R.id.id_logout_Schedule;
 import static unigo.bd.R.id.id_noticeBoard_Schedule;
@@ -194,6 +195,10 @@ public class Admin_Schedule extends AppCompatActivity {
         }else if (item.getItemId()== id_addBus_Schedule){
             Toast.makeText(this, "Navigating to AddBus...", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(Admin_Schedule.this,AddBus.class));
+            return true;
+        }else if (item.getItemId()== id_ViewRequest_AdminSchedule){
+            Toast.makeText(this, "Navigating to ViewRequest...", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(Admin_Schedule.this,ViewRequestBus.class));
             return true;
         }
         else{
