@@ -159,11 +159,11 @@ SessionManager sessionManager= new SessionManager(this);
             startActivity(new Intent(User_Schedule.this,UserHomepage.class));
             return true;
         }else if(item.getItemId()== R.id.requestBus_id_userSchedule){
-            Toast.makeText(this, "Not Functional Yet...", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(User_Schedule.this, RequestBus.class));
             return true;
         }else if(item.getItemId()== R.id.noticeBoardId_userSchedule){
             Toast.makeText(this, "Navigating to NoticeBoard...", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(User_Schedule.this, AddNotice.class));
+            startActivity(new Intent(User_Schedule.this, UserNoticeBoard.class));
             return true;
         }
         else {
