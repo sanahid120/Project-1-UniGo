@@ -23,6 +23,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -45,6 +46,8 @@ public class Admin_Schedule extends AppCompatActivity {
     private DatabaseReference databaseReference;
     public String globalCatagory;
     ProgressBar progressBar;
+    private SwipeRefreshLayout swipeRefreshLayout;  // Add this
+
     Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +60,8 @@ public class Admin_Schedule extends AppCompatActivity {
         ImageButton btnBack = findViewById(R.id.btnBack);
         Spinner spinnerCategory = findViewById(R.id.spinnerCategory);
         toolbar =findViewById(R.id.topBar);
+        swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout); // Initialize
+
         progressBar=findViewById(R.id.adminSchedule_progressBar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {   // remove the text from topBar of xml
@@ -65,7 +70,9 @@ public class Admin_Schedule extends AppCompatActivity {
 
         // Back button functionality
         btnBack.setOnClickListener(v -> finish());
-
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            fetchSchedules(globalCatagory);
+        });
         // RecyclerView setup
         recyclerViewSchedule = findViewById(R.id.recyclerView);
         recyclerViewSchedule.setLayoutManager(new LinearLayoutManager(this));
@@ -127,6 +134,8 @@ public class Admin_Schedule extends AppCompatActivity {
     private void fetchSchedules(String category) {
         globalCatagory = category;
         progressBar.setVisibility(View.VISIBLE);
+        swipeRefreshLayout.setRefreshing(true);  // Show refreshing animation
+
         String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
 
         databaseReference.child(category).child(currentDate).orderByChild("route").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -138,6 +147,8 @@ public class Admin_Schedule extends AppCompatActivity {
                     progressBar.setVisibility(View.GONE);
                     Toast.makeText(Admin_Schedule.this, "No Schedule Found!", Toast.LENGTH_SHORT).show();
                     scheduleAdapter.notifyDataSetChanged();
+                    swipeRefreshLayout.setRefreshing(false);  // Show refreshing animation
+
                     return;
                 }
 
@@ -152,8 +163,12 @@ public class Admin_Schedule extends AppCompatActivity {
                         scheduleItem.setId(data.getKey());
                         scheduleList.add(scheduleItem);
                     }
+                    swipeRefreshLayout.setRefreshing(false);  // Show refreshing animation
+
                 }
                 progressBar.setVisibility(View.GONE);
+                swipeRefreshLayout.setRefreshing(false);  // Show refreshing animation
+
                 scheduleAdapter.notifyDataSetChanged();
             }
 

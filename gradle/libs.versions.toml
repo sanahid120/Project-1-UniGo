@@ -13,6 +13,7 @@ firebaseDatabase = "21.0.0"
 picasso = "2.8"
 cloudinary = "2.3.1"
 playServicesCastTv = "21.1.1"
+swiperefreshlayout = "1.1.0"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -27,6 +28,7 @@ firebase-database = { group = "com.google.firebase", name = "firebase-database",
 picasso = { module = "com.squareup.picasso:picasso", version.ref = "picasso" }
 cloudinary = { module = "com.cloudinary:cloudinary-android", version.ref = "cloudinary" }
 play-services-cast-tv = { group = "com.google.android.gms", name = "play-services-cast-tv", version.ref = "playServicesCastTv" }
+swiperefreshlayout = { group = "androidx.swiperefreshlayout", name = "swiperefreshlayout", version.ref = "swiperefreshlayout" }
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 google-gms-google-services = { id = "com.google.gms.google-services", version.ref = "googleGmsGoogleServices" }
