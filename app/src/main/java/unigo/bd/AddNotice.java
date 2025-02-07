@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -23,7 +24,10 @@ import com.cloudinary.android.policy.TimeWindow;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class AddNotice extends AppCompatActivity {
@@ -33,6 +37,7 @@ public class AddNotice extends AppCompatActivity {
     private String title, description, imageUrl;
     private Uri imagePath;
     private Button uploadButton;
+    private ImageButton back;
     private DatabaseReference reference;
     private ProgressBar progressBar;
 
@@ -46,6 +51,8 @@ public class AddNotice extends AppCompatActivity {
         descriptionEditText = findViewById(R.id.et_noticeContent);
         uploadButton = findViewById(R.id.btnUpload);
         progressBar = findViewById(R.id.progressBar_AdminNoticeBoard);
+        back=findViewById(R.id.btnBack);
+        back.setOnClickListener(v->finish());
         reference = FirebaseDatabase.getInstance().getReference().child("Notices");
 
         // Initialize Cloudinary
@@ -143,8 +150,8 @@ public class AddNotice extends AppCompatActivity {
 
     private void uploadDataToFirebase(String imageUrl) {
         String key = reference.push().getKey();
-        Notice notice = new Notice(title, description, imageUrl, key);
-
+        String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+        Notice notice = new Notice(title, description, imageUrl, key, currentDate);
         reference.child(key).setValue(notice)
                 .addOnSuccessListener(unused -> {
                     titleEditText.setText("");

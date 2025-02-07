@@ -12,7 +12,7 @@
         android:id="@+id/topBar"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:background="#40C79E"
+        android:background="@color/white"
         android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
         tools:ignore="MissingConstraints">
 

@@ -75,8 +75,6 @@ public class AddBus extends AppCompatActivity {
         // Load bus data from Firebase
         loadBusData();
     }
-
-
     private void showAddBusDialog() {
         final EditText input = new EditText(this);
         input.setInputType(InputType.TYPE_CLASS_TEXT);
@@ -90,7 +88,6 @@ public class AddBus extends AppCompatActivity {
                         progressBar.setVisibility(View.VISIBLE);
                     } else {
                         Toast.makeText(this, "Bus Number cannot be empty!", Toast.LENGTH_SHORT).show();
-
                     }
                 })
                 .setNegativeButton("Cancel", null) // `null` automatically cancels the dialog

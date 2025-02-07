@@ -3,12 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:src="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/image">
+    android:background="@color/white">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/topBar"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:background="#40C79E"
+        android:background="@color/white"
         android:elevation="40dp"
         >
         <TextView
@@ -16,8 +16,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Admin Homepage"
-            android:textColor="@android:color/white"
-            android:textSize="20sp"
+            android:textColor="@color/textPrimary"
+            android:textSize="26sp"
             android:layout_gravity="center" />
     </androidx.appcompat.widget.Toolbar>
     <GridLayout
@@ -45,6 +45,19 @@
 
         <!-- Faculty Button -->
         <Button
+            android:id="@+id/adminNoticeButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_margin="8dp"
+            android:background="@drawable/custom_button_background"
+            android:text="Notice"
+            android:textAllCaps="true"
+            android:textColor="@android:color/black"
+            android:textSize="18sp" />
+
+        <Button
             android:id="@+id/btnAddBus"
             android:layout_width="50dp"
             android:layout_height="50dp"
@@ -56,6 +69,20 @@
             android:textAllCaps="true"
             android:textColor="@android:color/black"
             android:textSize="18sp" />
+        <Button
+            android:id="@+id/adminViewRequest"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_margin="8dp"
+
+            android:background="@drawable/custom_button_background"
+            android:text="Requests"
+            android:textAllCaps="true"
+            android:textColor="@android:color/black"
+            android:textSize="18sp" />
 
     </GridLayout>
+
 </RelativeLayout>

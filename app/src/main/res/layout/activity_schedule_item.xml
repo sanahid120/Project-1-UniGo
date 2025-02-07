@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:padding="1dp"
-    android:background="@drawable/schedule_item_bd"
+    android:background="@drawable/custom_edittext"
     android:elevation="10dp"
     android:layout_margin="4dp"
     >

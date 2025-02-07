@@ -23,9 +23,6 @@
             android:name=".ViewRequestBus"
             android:exported="false" />
         <activity
-            android:name=".ViewBusRequest"
-            android:exported="false" />
-        <activity
             android:name=".NoticeDetailActivity"
             android:exported="false" />
         <activity

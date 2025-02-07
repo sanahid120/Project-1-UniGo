@@ -31,6 +31,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -90,7 +91,9 @@ public class User_Schedule extends AppCompatActivity {
 
     private void fetchSchedules(String category) {
         progressBar.setVisibility(View.VISIBLE);
-        databaseReference.child(category).addValueEventListener(new ValueEventListener() {
+        String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+
+        databaseReference.child(category).child(currentDate).orderByChild("route").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 scheduleList.clear();

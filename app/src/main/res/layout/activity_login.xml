@@ -44,7 +44,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Email"
-                android:background="@android:drawable/editbox_background"
+                android:background="@drawable/custom_edittext"
                 android:inputType="textEmailAddress"
                 android:textColor="@color/black"
                 android:id="@+id/et_login_email"
@@ -63,7 +63,7 @@
                 android:layout_height="wrap_content"
                 android:hint="Password"
                 android:textColor="@color/black"
-                android:background="@android:drawable/editbox_background"
+                android:background="@drawable/custom_edittext"
                 android:inputType="textPassword"
                 android:id="@+id/et_login_password"
                 />

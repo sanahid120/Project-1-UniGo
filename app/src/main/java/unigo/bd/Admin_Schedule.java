@@ -33,6 +33,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -52,7 +53,7 @@ public class Admin_Schedule extends AppCompatActivity {
 
         // Initialize views
         TextView btnAdd = findViewById(R.id.addButton);
-        Button btnMarkCompleted = findViewById(R.id.markCompletedButton);
+        Button btnDeleteAll = findViewById(R.id.markCompletedButton);
         ImageButton btnBack = findViewById(R.id.btnBack);
         Spinner spinnerCategory = findViewById(R.id.spinnerCategory);
         toolbar =findViewById(R.id.topBar);
@@ -97,8 +98,7 @@ public class Admin_Schedule extends AppCompatActivity {
             startActivity(intent);
         });
 
-        // Mark completed
-        btnMarkCompleted.setOnClickListener(v -> {
+        btnDeleteAll.setOnClickListener(v -> {
             new androidx.appcompat.app.AlertDialog.Builder(Admin_Schedule.this)
                     .setTitle("Confirm Action")
                     .setMessage("Are you sure you want to delete All schedules?.")
@@ -113,8 +113,9 @@ public class Admin_Schedule extends AppCompatActivity {
 
     private void deleteAllSchedules(String globalCatagory) {
         DatabaseReference deleteReference = FirebaseDatabase.getInstance().getReference();
+        String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
 
-        deleteReference.child(globalCatagory).removeValue()
+        deleteReference.child(globalCatagory).child(currentDate).removeValue()
                 .addOnSuccessListener(aVoid -> Toast.makeText(Admin_Schedule.this, "All "+globalCatagory+" schedules deleted", Toast.LENGTH_SHORT).show())
                 .addOnFailureListener(e -> Toast.makeText(Admin_Schedule.this, "Failed to delete "+globalCatagory+" schedules", Toast.LENGTH_SHORT).show());
         progressBar.setVisibility(View.GONE);
@@ -126,8 +127,9 @@ public class Admin_Schedule extends AppCompatActivity {
     private void fetchSchedules(String category) {
         globalCatagory = category;
         progressBar.setVisibility(View.VISIBLE);
+        String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
 
-        databaseReference.child(category).addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference.child(category).child(currentDate).orderByChild("route").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 scheduleList.clear(); // Clear list before adding new data

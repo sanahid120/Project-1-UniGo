@@ -10,13 +10,27 @@
     android:background="@drawable/schedule_item_bd">
 
     <TextView
+        android:id="@+id/date_noticeBoard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Date"
+        android:elevation="4dp"
+        android:textColor="#2501C7"
+        android:padding="1dp"
+        android:textSize="13sp"
+        android:layout_marginHorizontal="5dp"
+        android:layout_marginTop="5dp"
+        />
+
+    <TextView
         android:id="@+id/tv_NoticeTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Title"
-        android:elevation="10dp"
+        android:elevation="5dp"
         android:textColor="#2501C7"
         android:padding="10dp"
+        android:background="@drawable/custom_edittext"
         android:textSize="20dp"
         android:layout_marginHorizontal="5dp"
         android:layout_marginTop="15dp"
@@ -28,6 +42,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/black"
         android:text="Description"
+        android:background="@android:drawable/editbox_background_normal"
         android:padding="10dp"
         android:layout_marginTop="10dp"
         android:textSize="18dp"

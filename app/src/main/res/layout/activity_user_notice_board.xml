@@ -6,12 +6,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/image">
+    android:background="@color/white">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/topBar"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:background="#40C79E"
+        android:background="@color/white"
         android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
         tools:ignore="MissingConstraints">
 
@@ -38,7 +38,7 @@
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="1dp"
         android:padding="4dp"
         />
 

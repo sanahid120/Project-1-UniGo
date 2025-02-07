@@ -74,9 +74,7 @@ public class LoginActivity extends AppCompatActivity {
         register.setOnClickListener(v -> startActivity(new Intent(LoginActivity.this, SignupActivity.class)));
     }
 
-    /**
-     * Checks if the entered credentials match admin credentials stored in Firebase.
-     */
+
     private void checkIfAdmin(String mail, String pass) {
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

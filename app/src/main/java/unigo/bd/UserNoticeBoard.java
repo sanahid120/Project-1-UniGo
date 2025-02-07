@@ -18,6 +18,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class UserNoticeBoard extends AppCompatActivity {
@@ -57,18 +58,16 @@ public class UserNoticeBoard extends AppCompatActivity {
                     adapter.notifyDataSetChanged();  // Ensure RecyclerView updates even if empty
                     return;
                 }
-
                 for (DataSnapshot data : snapshot.getChildren()) {
                     Notice notice = data.getValue(Notice.class);
                     if (notice != null) {
                         noticeList.add(notice);
                     }
                 }
-
-                adapter.notifyDataSetChanged();  // Refresh the RecyclerView
+                Collections.reverse(noticeList);
+                adapter.notifyDataSetChanged();
                 progressBar.setVisibility(View.GONE);
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 progressBar.setVisibility(View.GONE);
@@ -76,5 +75,6 @@ public class UserNoticeBoard extends AppCompatActivity {
             }
         });
     }
+
 
 }

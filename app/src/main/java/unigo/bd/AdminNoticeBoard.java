@@ -24,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class AdminNoticeBoard extends AppCompatActivity {
@@ -64,7 +65,7 @@ public class AdminNoticeBoard extends AppCompatActivity {
                 noticeList.clear();
                 if (!snapshot.exists()) { // No schedules found
                     progressBar.setVisibility(View.GONE);
-                    Toast.makeText(AdminNoticeBoard.this, "No Schedule Found!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AdminNoticeBoard.this, "No Notice Available!", Toast.LENGTH_SHORT).show();
                     adapter.notifyDataSetChanged();
                     return;
                 }
@@ -72,9 +73,11 @@ public class AdminNoticeBoard extends AppCompatActivity {
                     Notice notice = data.getValue(Notice.class);
                     noticeList.add(notice);
                 }
+                Collections.reverse(noticeList);
                 adapter.notifyDataSetChanged();
                 progressBar.setVisibility(View.GONE);
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 progressBar.setVisibility(View.GONE);

@@ -10,8 +10,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import com.google.firebase.database.*;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class UpdateSchedule extends AppCompatActivity {
 
@@ -28,6 +32,7 @@ public class UpdateSchedule extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_schedule);
+        String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
 
         // Initialize Firebase database reference
         databaseReference = FirebaseDatabase.getInstance().getReference();
@@ -67,7 +72,7 @@ public class UpdateSchedule extends AppCompatActivity {
                 String selectedTime = editTextTime.getText().toString();
 
                 Schedule updatedSchedule = new Schedule(selectedRoute, selectedBusNumber, selectedTime);
-                databaseReference.child(category).child(scheduleId).setValue(updatedSchedule)
+                databaseReference.child(category).child(currentDate).child(scheduleId).setValue(updatedSchedule)
                         .addOnSuccessListener(aVoid -> Toast.makeText(this, "Schedule updated", Toast.LENGTH_SHORT).show())
                         .addOnFailureListener(e -> Toast.makeText(this, "Failed to update schedule", Toast.LENGTH_SHORT).show());
             });

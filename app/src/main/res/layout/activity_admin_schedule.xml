@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/image"
+    android:background="@color/white"
     android:orientation="vertical"
     android:padding="4dp">
 
@@ -10,7 +10,7 @@
         android:id="@+id/topBar"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:background="#40C79E"
+        android:background="@color/white"
         android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
 
         <!-- Back Button -->
@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:text="Admin Schedule"
             android:textColor="@android:color/black"
-            android:textSize="20sp"
+            android:textSize="26sp"
             android:layout_gravity="center" />
     </androidx.appcompat.widget.Toolbar>
 
@@ -48,6 +48,7 @@
             android:layout_height="match_parent"
             android:layout_marginTop="16dp"
             android:layout_weight="1"
+            android:layout_marginBottom="3dp"
             android:gravity="center"
             android:text="Tuesday, January 28"
             android:textSize="20sp"

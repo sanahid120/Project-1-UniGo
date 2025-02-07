@@ -11,8 +11,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import com.google.firebase.database.*;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class AddSchedule extends AppCompatActivity {
 
@@ -21,6 +25,7 @@ public class AddSchedule extends AppCompatActivity {
     private Button btnCreate;
     private RadioGroup radioGroupFor;
     private ImageButton backButton;
+    String currentDate;
 
     private DatabaseReference databaseReference;
     private ArrayList<String> routesList = new ArrayList<>();
@@ -30,6 +35,7 @@ public class AddSchedule extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_schedule);
+        currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
 
         // Initialize Firebase database reference
         databaseReference = FirebaseDatabase.getInstance().getReference();
@@ -75,14 +81,19 @@ public class AddSchedule extends AppCompatActivity {
             }
             // Update Firebase on save
             btnCreate.setOnClickListener(v -> {
+
                 String selectedRoute = spinnerRoutes.getSelectedItem().toString();
                 String selectedBusNumber = spinnerBusNumbers.getSelectedItem().toString();
                 String selectedTime = editTextTime.getText().toString();
 
                 Schedule updatedSchedule = new Schedule(selectedRoute, selectedBusNumber, selectedTime);
-                databaseReference.child(category).child(scheduleId).setValue(updatedSchedule)
-                        .addOnSuccessListener(aVoid -> Toast.makeText(this, "Schedule updated", Toast.LENGTH_SHORT).show())
-                        .addOnFailureListener(e -> Toast.makeText(this, "Failed to update schedule", Toast.LENGTH_SHORT).show());
+                databaseReference.child(category).child(currentDate).child(scheduleId).setValue(updatedSchedule)
+                        .addOnSuccessListener(aVoid -> {
+                            Toast.makeText(this, "Schedule updated", Toast.LENGTH_SHORT).show();
+                        })
+                        .addOnFailureListener(e -> {
+                            Toast.makeText(this, "Failed to update schedule", Toast.LENGTH_SHORT).show();
+                        });
             });
         }
     }
@@ -155,7 +166,7 @@ public class AddSchedule extends AppCompatActivity {
 
         if (key != null) {
             Schedule schedule = new Schedule(selectedRoute, selectedBusNumber, selectedTime);
-            scheduleRef.child(key).setValue(schedule)
+            scheduleRef.child(currentDate).child(key).setValue(schedule)
                     .addOnSuccessListener(aVoid -> Toast.makeText(AddSchedule.this, "Schedule added successfully", Toast.LENGTH_SHORT).show())
                     .addOnFailureListener(e -> Toast.makeText(AddSchedule.this, "Failed to add schedule", Toast.LENGTH_SHORT).show());
         } else {

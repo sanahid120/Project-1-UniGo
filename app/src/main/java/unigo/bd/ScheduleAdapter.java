@@ -20,7 +20,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ScheduleViewHolder> {
 
@@ -65,7 +68,9 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Schedu
                                         public void onClick(DialogInterface dialog, int which) {
                                             String category = ((Admin_Schedule) holder.itemView.getContext()).globalCatagory;
                                             // Use the correct item ID to remove it from Firebase
-                                            FirebaseDatabase.getInstance().getReference().child(category)
+                                            String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+
+                                            FirebaseDatabase.getInstance().getReference().child(category).child(currentDate)
                                                     .child(item.getId()) // Use the ID of the current schedule
                                                     .removeValue()
                                                     .addOnCompleteListener(task -> {

@@ -45,6 +45,7 @@ public class UserNoticeBoardAdapter extends RecyclerView.Adapter<UserNoticeBoard
             intent.putExtra("title", notice.getTitle());
             intent.putExtra("description", notice.getDescription());
             intent.putExtra("imageUrl", notice.getImageUrl());
+            intent.putExtra("Date",notice.getDate());
             context.startActivity(intent);
         });
     }
