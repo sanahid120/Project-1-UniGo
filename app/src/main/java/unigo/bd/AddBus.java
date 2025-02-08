@@ -106,11 +106,10 @@ public class AddBus extends AppCompatActivity {
                     Toast.makeText(this, "Bus Added: " + busNumber, Toast.LENGTH_SHORT).show();
                 } else {
                     progressBar.setVisibility(View.GONE);
-                    Toast.makeText(this, "Failed to add bus!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Failed to add Number!", Toast.LENGTH_SHORT).show();
                 }
             });
         }
-
     }
 
 

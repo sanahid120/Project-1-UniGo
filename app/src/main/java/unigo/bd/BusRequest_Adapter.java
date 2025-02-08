@@ -106,7 +106,7 @@ public class BusRequest_Adapter extends RecyclerView.Adapter<BusRequest_Adapter.
                 .child(request.getTime())  // Select time slot
                 .child(request.getRoute()) // Select route
                 .removeValue()  // Remove from Firebase
-                .addOnSuccessListener(aVoid -> {
+                .addOnSuccessListener(v -> {
                     requestList.remove(position);  // Remove from RecyclerView
                     notifyItemRemoved(position);
                     Toast.makeText(context, "Request deleted successfully!", Toast.LENGTH_SHORT).show();

@@ -12,7 +12,6 @@ public class Notice {
     }
 
     public Notice() {
-        // Default Constructor (Needed for Firebase)
     }
 
     public Notice(String title, String description, String imageUrl, String id, String date) {

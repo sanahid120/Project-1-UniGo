@@ -78,7 +78,6 @@ private Button schedule,notice;
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId()== login_menu_user){
-            Toast.makeText(this, "Login/Register Button Selected", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(UserHomepage.this,LoginActivity.class));
             return true;
         }  else if (item.getItemId()==R.id.logout_user_menu) {
@@ -89,9 +88,7 @@ private Button schedule,notice;
             finish();
         }
          else if (item.getItemId()==R.id.requestBus_user_menu){
-            Toast.makeText(this, "You Clicked Request Bus...", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(this, RequestBus.class));
-
         }
           else if (item.getItemId()==R.id.userProfile_menu){
             startActivity(new Intent(this, UserProfile.class));

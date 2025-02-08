@@ -34,7 +34,6 @@ public class UpdateSchedule extends AppCompatActivity {
         setContentView(R.layout.activity_update_schedule);
         String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
 
-        // Initialize Firebase database reference
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
         spinnerRoutes = findViewById(R.id.spinnerRoutes);
@@ -44,7 +43,7 @@ public class UpdateSchedule extends AppCompatActivity {
         backButton = findViewById(R.id.back_button);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null) {   // remove the text from topBar of xml
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
         loadRoutes();
@@ -60,12 +59,10 @@ public class UpdateSchedule extends AppCompatActivity {
         String category = intent.getStringExtra("CATEGORY");
 
         if (scheduleId != null) {
-            // Pre-fill the fields with data for editing
             spinnerRoutes.setSelection(routesList.indexOf(intent.getStringExtra("ROUTE")));
             spinnerBusNumbers.setSelection(busNumbersList.indexOf(intent.getStringExtra("BUS")));
             editTextTime.setText(intent.getStringExtra("TIME"));
 
-            // Update Firebase on save
             btnUpdate.setOnClickListener(v -> {
                 String selectedRoute = spinnerRoutes.getSelectedItem().toString();
                 String selectedBusNumber = spinnerBusNumbers.getSelectedItem().toString();
@@ -87,14 +84,12 @@ public class UpdateSchedule extends AppCompatActivity {
         routesList.add("Route 3");
         routesList.add("Route 4");
 
-        // Set the adapter for the spinner
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, routesList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerRoutes.setAdapter(adapter);
     }
 
     private void loadBusNumbers() {
-        // Load bus numbers from Firebase
         databaseReference.child("buses").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -125,11 +120,8 @@ public class UpdateSchedule extends AppCompatActivity {
         Calendar calendar = Calendar.getInstance();
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
         int minute = calendar.get(Calendar.MINUTE);
-
         TimePickerDialog timePickerDialog = new TimePickerDialog(this, (view, hourOfDay, minute1) ->
                 editTextTime.setText(String.format("%02d:%02d", hourOfDay, minute1)), hour, minute, true);
         timePickerDialog.show();
     }
-
-
 }

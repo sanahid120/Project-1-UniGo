@@ -67,7 +67,6 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.NoticeView
                             Toast.makeText(context, "Failed: " + e.getMessage(), Toast.LENGTH_SHORT).show()
                     );
         });
-
     }
 
     @Override

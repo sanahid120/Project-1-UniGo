@@ -68,7 +68,7 @@ public class ViewRequestBus extends AppCompatActivity {
                 requestList.clear();
                 if(!snapshot.exists()){
                     progressBar.setVisibility(View.GONE);
-                    Toast.makeText(ViewRequestBus.this, "No Schedule Found!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ViewRequestBus.this, "No Data Found!", Toast.LENGTH_SHORT).show();
                     adapter.notifyDataSetChanged();
                     return;
                 }
@@ -86,7 +86,7 @@ public class ViewRequestBus extends AppCompatActivity {
                 progressBar.setVisibility(View.GONE);
                 Toast.makeText(ViewRequestBus.this, "error: "+error.getMessage(), Toast.LENGTH_SHORT).show();
                 adapter.notifyDataSetChanged();
-                return;
+
             }
         });
     }

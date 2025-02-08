@@ -19,11 +19,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        try {
-//            initConfig();
-//        } catch (Exception e) {
-//            Toast.makeText(this, "Error: "+ e.getMessage(), Toast.LENGTH_SHORT).show();
-//        }
+
         appNameText = findViewById(R.id.app_name_text);
         animateText();
         new Handler().postDelayed(() -> {
@@ -47,12 +43,4 @@ public class MainActivity extends AppCompatActivity {
         }, delay);
 
     }
-//
-//    private void initConfig() {
-//        Map<String, String> config = new HashMap<>();
-//        config.put("cloud_name", "dhxb2civn");
-//        config.put("api_key", "791541517185888");
-//        config.put("api_secret", "GFV1357EDbPw9tFoCHFtdMWKHQY");
-//        MediaManager.init(this, config);
-//    }
 }

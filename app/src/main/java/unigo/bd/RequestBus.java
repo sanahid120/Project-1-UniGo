@@ -99,12 +99,8 @@ public class RequestBus extends AppCompatActivity {
                     progressBar.setVisibility(View.GONE);
                     Toast.makeText(RequestBus.this, "You have already requested a bus today!", Toast.LENGTH_SHORT).show();
                 } else {
-
                     submitRequest(selectedTime, selectedRoute);
-                    progressBar.setVisibility(View.GONE);
                     Toast.makeText(RequestBus.this, "Request Uploaded!", Toast.LENGTH_SHORT).show();
-
-
                 }
             }
             @Override
@@ -119,6 +115,7 @@ public class RequestBus extends AppCompatActivity {
                 .setValue(ServerValue.increment(1));
         dbRef.child(currentDate).child(time).child(route).child("users")
                 .child(userId).setValue(true);
+        progressBar.setVisibility(View.GONE);
     }
 
 

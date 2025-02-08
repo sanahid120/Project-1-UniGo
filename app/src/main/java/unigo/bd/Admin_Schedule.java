@@ -41,7 +41,7 @@ import java.util.Locale;
 public class Admin_Schedule extends AppCompatActivity {
 
     private RecyclerView recyclerViewSchedule;
-    private ScheduleAdapter scheduleAdapter;
+    ScheduleAdapter scheduleAdapter;
     private List<ScheduleItem> scheduleList;
     private DatabaseReference databaseReference;
     public String globalCatagory;

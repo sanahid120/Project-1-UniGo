@@ -7,6 +7,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -103,11 +104,9 @@ public class AdminNoticeBoard extends AppCompatActivity {
             return true;
         }
         else if (item.getItemId()==R.id.id_addBus_adminNoticeBoard) {
-            Toast.makeText(this, "Navigating to AddBus...", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(this,AddBus.class));
             return true;
         }else if (item.getItemId()==R.id.id_addNotice_AdminNoticeBoard) {
-            Toast.makeText(this, "Navigating to NoticeBoard...", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(this, AddNotice.class));
             return true;
         }

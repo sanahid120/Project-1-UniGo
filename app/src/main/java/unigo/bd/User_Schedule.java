@@ -150,7 +150,6 @@ SessionManager sessionManager= new SessionManager(this);
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId()== login_userSchedule){
-            Toast.makeText(this, "Navigate to Login...", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(User_Schedule.this,LoginActivity.class));
             return true;
         }else if(item.getItemId()== logout_userSchedule){
@@ -162,7 +161,6 @@ SessionManager sessionManager= new SessionManager(this);
             startActivity(new Intent(User_Schedule.this, RequestBus.class));
             return true;
         }else if(item.getItemId()== R.id.noticeBoardId_userSchedule){
-            Toast.makeText(this, "Navigating to NoticeBoard...", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(User_Schedule.this, UserNoticeBoard.class));
             return true;
         }

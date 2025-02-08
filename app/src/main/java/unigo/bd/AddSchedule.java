@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.*;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,8 +26,8 @@ public class AddSchedule extends AppCompatActivity {
     private Button btnCreate;
     private RadioGroup radioGroupFor;
     private ImageButton backButton;
-    String currentDate;
-
+    private String currentDate;
+    private ProgressBar progressBar;
     private DatabaseReference databaseReference;
     private ArrayList<String> routesList = new ArrayList<>();
     private ArrayList<String> busNumbersList = new ArrayList<>();
@@ -39,7 +40,7 @@ public class AddSchedule extends AppCompatActivity {
 
         // Initialize Firebase database reference
         databaseReference = FirebaseDatabase.getInstance().getReference();
-
+        progressBar = findViewById(R.id.progressBar_addSchedule);
         spinnerRoutes = findViewById(R.id.spinnerRoutes);
         spinnerBusNumbers = findViewById(R.id.spinnerBusNumbers);
         editTextTime = findViewById(R.id.editTextTime);
@@ -151,6 +152,7 @@ public class AddSchedule extends AppCompatActivity {
     }
 
     private void saveScheduleToFirebase() {
+        progressBar.setVisibility(View.VISIBLE);
         String selectedFor = ((RadioButton) findViewById(radioGroupFor.getCheckedRadioButtonId())).getText().toString();
         String selectedRoute = spinnerRoutes.getSelectedItem().toString();
         String selectedBusNumber = spinnerBusNumbers.getSelectedItem().toString();
@@ -158,6 +160,7 @@ public class AddSchedule extends AppCompatActivity {
 
         if (selectedRoute.isEmpty() || selectedBusNumber.isEmpty() || selectedTime.isEmpty()) {
             Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
+            progressBar.setVisibility(View.GONE);
             return;
         }
 
@@ -165,11 +168,19 @@ public class AddSchedule extends AppCompatActivity {
         String key = scheduleRef.push().getKey();
 
         if (key != null) {
+
             Schedule schedule = new Schedule(selectedRoute, selectedBusNumber, selectedTime);
             scheduleRef.child(currentDate).child(key).setValue(schedule)
-                    .addOnSuccessListener(aVoid -> Toast.makeText(AddSchedule.this, "Schedule added successfully", Toast.LENGTH_SHORT).show())
-                    .addOnFailureListener(e -> Toast.makeText(AddSchedule.this, "Failed to add schedule", Toast.LENGTH_SHORT).show());
+                    .addOnSuccessListener(aVoid -> {
+                        progressBar.setVisibility(View.GONE);
+                        Toast.makeText(AddSchedule.this, "Schedule added successfully", Toast.LENGTH_SHORT).show();
+                    })
+                    .addOnFailureListener(e -> {
+                        progressBar.setVisibility(View.GONE);
+                        Toast.makeText(AddSchedule.this, "Failed to add schedule", Toast.LENGTH_SHORT).show();
+                    });
         } else {
+            progressBar.setVisibility(View.GONE);
             Toast.makeText(this, "Error: Unable to generate schedule ID", Toast.LENGTH_SHORT).show();
         }
     }
