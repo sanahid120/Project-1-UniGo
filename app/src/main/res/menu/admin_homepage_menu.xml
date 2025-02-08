@@ -7,4 +7,10 @@
         android:title="LogOut"
         app:showAsAction="never"
         />
+    <item
+        android:id="@+id/adminProfile_menu"
+        android:title="profile"
+        app:showAsAction="always"
+        android:icon="@drawable/profile"
+        />
 </menu>

@@ -54,6 +54,8 @@ public class Admin_Homepage extends AppCompatActivity {
             new SessionManager(Admin_Homepage.this).logout();
             startActivity(new Intent(Admin_Homepage.this,UserHomepage.class));
             return true;
+        } else if (item.getItemId()==R.id.adminProfile_menu) {
+            startActivity(new Intent(this, AdminProfile.class));
         }
         return super.onOptionsItemSelected(item);
     }

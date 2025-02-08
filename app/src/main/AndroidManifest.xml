@@ -20,6 +20,9 @@
         android:theme="@style/Theme.UniGo"
         tools:targetApi="31">
         <activity
+            android:name=".AdminProfile"
+            android:exported="false" />
+        <activity
             android:name=".UserProfile"
             android:exported="false" />
         <activity
