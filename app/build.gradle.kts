@@ -48,5 +48,6 @@ dependencies {
     // Use Version Catalog for Picasso and Cloudinary
     implementation(libs.picasso)
     implementation(libs.cloudinary)
+    implementation ("de.hdodenhof:circleimageview:3.1.0")
 
 }

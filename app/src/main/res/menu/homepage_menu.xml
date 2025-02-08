@@ -11,6 +11,12 @@
         app:showAsAction="never"
         />
     <item
+        android:id="@+id/userProfile_menu"
+        android:title="profile"
+        app:showAsAction="always"
+        android:icon="@drawable/profile"
+        />
+    <item
         android:id="@+id/logout_user_menu"
         android:title="LogOut"
         app:showAsAction="never"

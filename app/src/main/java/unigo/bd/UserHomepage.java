@@ -59,15 +59,18 @@ private Button schedule,notice;
         MenuItem loginItem = menu.findItem(login_menu_user);
         MenuItem logoutItem = menu.findItem(R.id.logout_user_menu);
         MenuItem requestBusItem = menu.findItem(R.id.requestBus_user_menu);
+        MenuItem profile = menu.findItem(R.id.userProfile_menu);
 
         if (sessionManager.isLoggedIn()) {
             loginItem.setVisible(false);
             logoutItem.setVisible(true);
             requestBusItem.setVisible(true);
+            profile.setVisible(true);
         } else {
             loginItem.setVisible(true);
             logoutItem.setVisible(false);
             requestBusItem.setVisible(false);
+            profile.setVisible(false);
         }
         return true;
     }
@@ -78,18 +81,22 @@ private Button schedule,notice;
             Toast.makeText(this, "Login/Register Button Selected", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(UserHomepage.this,LoginActivity.class));
             return true;
-        } else if (item.getItemId()==R.id.logout_user_menu) {
+        }  else if (item.getItemId()==R.id.logout_user_menu) {
             SessionManager sessionManager = new SessionManager(this);
             sessionManager.logout();
             FirebaseAuth.getInstance().signOut();
             startActivity(new Intent(this, UserHomepage.class));
             finish();
         }
-        else if (item.getItemId()==R.id.requestBus_user_menu);{
+         else if (item.getItemId()==R.id.requestBus_user_menu){
             Toast.makeText(this, "You Clicked Request Bus...", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(this, RequestBus.class));
 
         }
+          else if (item.getItemId()==R.id.userProfile_menu){
+            startActivity(new Intent(this, UserProfile.class));
+        }
+
         return super.onOptionsItemSelected(item);
     }
 }

@@ -32,7 +32,6 @@ public class BusAdapter extends RecyclerView.Adapter<BusAdapter.BusViewHolder> {
     @NonNull
     @Override
     public BusViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        // Inflate the layout for each item in the RecyclerView
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.bus_item, parent, false);
         return new BusViewHolder(itemView);
     }

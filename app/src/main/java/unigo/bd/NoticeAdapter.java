@@ -55,14 +55,7 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.NoticeView
             holder.DescriptionTextView.setVisibility(View.GONE);
         }
 
-//        // Click listener to open details
-//        holder.itemView.setOnClickListener(v -> {
-//            Intent intent = new Intent(context, NoticeDetailActivity.class);
-//            intent.putExtra("title", notice.getTitle());
-//            intent.putExtra("description", notice.getDescription());
-//            intent.putExtra("imageUrl", notice.getImageUrl());
-//            context.startActivity(intent);
-//        });
+
 
         holder.deleteButton.setOnClickListener(v -> {
             String noticeId = notice.getId();

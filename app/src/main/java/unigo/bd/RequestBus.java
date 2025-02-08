@@ -99,8 +99,11 @@ public class RequestBus extends AppCompatActivity {
                     progressBar.setVisibility(View.GONE);
                     Toast.makeText(RequestBus.this, "You have already requested a bus today!", Toast.LENGTH_SHORT).show();
                 } else {
-                    progressBar.setVisibility(View.GONE);
+
                     submitRequest(selectedTime, selectedRoute);
+                    progressBar.setVisibility(View.GONE);
+                    Toast.makeText(RequestBus.this, "Request Uploaded!", Toast.LENGTH_SHORT).show();
+
 
                 }
             }
