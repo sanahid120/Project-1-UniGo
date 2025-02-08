@@ -86,7 +86,6 @@ public class ViewRequestBus extends AppCompatActivity {
                 progressBar.setVisibility(View.GONE);
                 Toast.makeText(ViewRequestBus.this, "error: "+error.getMessage(), Toast.LENGTH_SHORT).show();
                 adapter.notifyDataSetChanged();
-
             }
         });
     }
