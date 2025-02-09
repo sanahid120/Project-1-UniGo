@@ -95,6 +95,7 @@ public class UserProfile extends AppCompatActivity {
         // Save Button Click
         saveButton.setOnClickListener(v -> {
             if (imagePath != null) {
+                imageView.setImageURI(imagePath);
                 uploadImageToCloudinary(); // Upload image and then save user data
             } else {
                 saveUserData(); // Only save username if no new image selected
@@ -121,6 +122,7 @@ public class UserProfile extends AppCompatActivity {
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(intent, IMAGE_REQ);
+
     }
 
     @Override
@@ -128,16 +130,16 @@ public class UserProfile extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == IMAGE_REQ && resultCode == RESULT_OK && data != null) {
             imagePath = data.getData();
-            imageView.setImageURI(imagePath); // Temporarily display selected image
+            imageView.setImageURI(imagePath);
         }
     }
 
     private void uploadImageToCloudinary() {
+        progressBar.setVisibility(View.VISIBLE);
         if (imagePath == null) {
-            saveUserData(); // No new image, just update user details
+            saveUserData();
             return;
         }
-
         MediaManager.get().upload(imagePath)
                 .unsigned("SANAHID") // Use unsigned upload preset
                 .option("resource_type", "image")
@@ -175,7 +177,6 @@ public class UserProfile extends AppCompatActivity {
             return;
         }
 
-        // Create User Info Object
         Map<String, Object> userInfo = new HashMap<>();
         userInfo.put("username", username);
         userInfo.put("email", currentUser.getEmail()); // Keep existing email
@@ -183,7 +184,6 @@ public class UserProfile extends AppCompatActivity {
             userInfo.put("profileImage", profileImageUrl); // Only update image if new one uploaded
         }
 
-        // Save Data to Firebase
         userRef.setValue(userInfo)
                 .addOnSuccessListener(unused -> {
                     Toast.makeText(UserProfile.this, "Profile Updated!", Toast.LENGTH_SHORT).show();
@@ -208,7 +208,6 @@ public class UserProfile extends AppCompatActivity {
                     return;
                 }
 
-                // Retrieve user data
                 UsersInfo userInfo = snapshot.getValue(UsersInfo.class);
                 if (userInfo != null) {
                     usernameEditText.setText(userInfo.username);
