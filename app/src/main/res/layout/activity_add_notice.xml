@@ -5,14 +5,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@drawable/img_4"
     tools:context=".AddNotice">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/topBar"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:background="@color/white"
         android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
         tools:ignore="MissingConstraints">
 
@@ -29,6 +28,7 @@
             android:id="@+id/toolbarTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textStyle="bold"
             android:text="Add NoticeBoard"
             android:textColor="@android:color/black"
             android:textSize="20sp"

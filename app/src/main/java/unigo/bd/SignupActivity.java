@@ -31,8 +31,8 @@ public class SignupActivity extends AppCompatActivity {
     private TextView login;
     private ProgressBar progressBar;
     private FirebaseAuth mAuth;
-    Pattern emailPattern = Pattern.compile("^(cse)_\\d{16}@lus.ac.bd$");
-    Pattern passwordPattern = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$");
+    Pattern emailPattern = Pattern.compile("^[a-z0-9_]+@lus\\.ac\\.bd$");
+    Pattern passwordPattern = Pattern.compile("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,7 +75,7 @@ public class SignupActivity extends AppCompatActivity {
             }
 
             if (!emailPattern.matcher(mail).matches()) {
-                Toast.makeText(this, "Unexpected e-mail address,CSE mail only", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Unexpected e-mail address,LU mail only", Toast.LENGTH_SHORT).show();
                 email.setError("Invalid email format");
                 email.requestFocus();
                 return;
@@ -89,7 +89,7 @@ public class SignupActivity extends AppCompatActivity {
 
             if (!passwordPattern.matcher(pass).matches()) {
                 Toast.makeText(this, "Password must have least of 8 characters", Toast.LENGTH_SHORT).show();
-                Toast.makeText(this, "atleast 1 upper, 1 lower and 1 number", Toast.LENGTH_SHORT).show();                password.setError("invalid password format");
+                Toast.makeText(this, "Use Uppercase, lowercase, Number, Sp. Character", Toast.LENGTH_SHORT).show();                password.setError("invalid password format");
                 password.requestFocus();
                 return;
             }
@@ -108,7 +108,6 @@ public class SignupActivity extends AppCompatActivity {
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     progressBar.setVisibility(View.VISIBLE);
                     if (task.isSuccessful()) {
-                        // Send verification email
                         mAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(verificationTask -> {
                             if (verificationTask.isSuccessful()) {
                                 Toast.makeText(SignupActivity.this, "Verification email sent! Please check your inbox.", Toast.LENGTH_SHORT).show();

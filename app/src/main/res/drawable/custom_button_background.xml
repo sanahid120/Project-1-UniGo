@@ -17,7 +17,7 @@
 
             android:angle="45" />
             <corners android:radius="16dp" />
-            <stroke android:color="#277FC1" android:width="3dp" /> <!-- Slight border contrast -->
+            <stroke android:color="#03F2EE" android:width="3dp" /> <!-- Slight border contrast -->
         </shape>
     </item>
 </selector>

@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@drawable/img_4"
     android:orientation="vertical"
     android:padding="4dp">
 
@@ -10,9 +10,7 @@
         android:id="@+id/topBar"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:background="@color/white"
-        android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
-
+       >
         <!-- Back Button -->
         <ImageButton
             android:id="@+id/btnBack"
@@ -28,7 +26,8 @@
             android:layout_height="wrap_content"
             android:text="Admin Schedule"
             android:textColor="@android:color/black"
-            android:textSize="26sp"
+            android:textSize="25sp"
+            android:textStyle="bold"
             android:layout_gravity="center" />
     </androidx.appcompat.widget.Toolbar>
 

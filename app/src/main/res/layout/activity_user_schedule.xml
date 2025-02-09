@@ -1,7 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/image"
+    android:background="@drawable/img_3"
     android:padding="2dp">
 
     <!-- Toolbar Section -->
@@ -9,8 +9,7 @@
         android:id="@+id/topBar"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:background="@color/white"
-        android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+       >
 
         <!-- Back Button inside Toolbar -->
         <ImageButton
@@ -27,6 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="User Schedule"
+            android:textStyle="bold"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:layout_gravity="center" />
@@ -47,6 +47,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Tuesday, January 28"
+            android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"
             android:gravity="center"
@@ -55,6 +56,7 @@
         <Spinner
             android:id="@+id/spinnerCategory"
             android:layout_width="wrap_content"
+            android:backgroundTint="@color/black"
             android:layout_height="wrap_content"
             android:entries="@array/schedule_categories"
             android:gravity="center" />
@@ -73,6 +75,7 @@
             android:id="@+id/tvRoute"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:textStyle="bold"
             android:layout_weight="1"
             android:gravity="center"
             android:text="Route"
@@ -85,6 +88,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textStyle="bold"
+
             android:gravity="center"
             android:text="Time"
             android:textColor="@android:color/black"
@@ -97,6 +102,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
+            android:textStyle="bold"
             android:text="Bus"
             android:textColor="@android:color/black"
             android:textSize="18sp" />

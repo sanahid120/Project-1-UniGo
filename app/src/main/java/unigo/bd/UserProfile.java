@@ -72,21 +72,23 @@ public class UserProfile extends AppCompatActivity {
         }
         userRef = FirebaseDatabase.getInstance().getReference("userInfo").child(currentUser.getUid());
 
-        // Initialize Cloudinary
         initCloudinary();
 
-        // Fetch User Info
         fetchUserInfo();
 
         // Select Image
         imageView.setOnClickListener(v -> {
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
-                    == PackageManager.PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission(UserProfile.this, Manifest.permission.READ_EXTERNAL_STORAGE)
+                    == PackageManager.PERMISSION_GRANTED ||
+                    ContextCompat.checkSelfPermission(UserProfile.this, Manifest.permission.READ_MEDIA_IMAGES)
+                            == PackageManager.PERMISSION_GRANTED) {
+
                 pickImage();
+
             } else {
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                        IMAGE_REQ);
+                ActivityCompat.requestPermissions(UserProfile.this, new String[]{
+                        Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.READ_MEDIA_IMAGES}, IMAGE_REQ);
             }
         });
 
@@ -103,7 +105,7 @@ public class UserProfile extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        fetchUserInfo(); // Fetch user info when returning to this activity
+        fetchUserInfo();
     }
 
     private void initCloudinary() {

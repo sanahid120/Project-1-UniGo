@@ -6,15 +6,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/white"
-    tools:context=".AdminNoticeBoard">
+    android:background="@drawable/img_4"
+    >
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/topBar"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:background="@color/white"
-        android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
         tools:ignore="MissingConstraints">
 
         <!-- Back Button -->
@@ -30,9 +28,10 @@
             android:id="@+id/toolbarTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="User NoticeBoard"
+            android:text="Admin NoticeBoard"
             android:textColor="@android:color/black"
             android:textSize="20sp"
+            android:textStyle="bold"
             android:layout_gravity="center" />
     </androidx.appcompat.widget.Toolbar>
 

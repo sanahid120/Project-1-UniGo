@@ -3,13 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:src="http://schemas.android.com/apk/res-auto"
-    android:background="@color/white"
+    android:background="@drawable/img_3"
     >
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/topBar"
         android:layout_width="match_parent"
+
         android:layout_height="45dp"
-        android:background="@color/white"
         android:elevation="40dp"
     >
         <TextView
@@ -19,6 +19,7 @@
             android:text="User Homepage"
             android:textColor="@color/black"
             android:textSize="20sp"
+            android:textStyle="bold"
             android:layout_gravity="center" />
 </androidx.appcompat.widget.Toolbar>
     <GridLayout
